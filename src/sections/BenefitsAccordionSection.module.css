@@ -2,8 +2,8 @@
   background: #f2eee7;
   color: #1f1a17;
   width: 100%;
-  padding-left: 10vw;
-  padding-right: 10vw;
+  padding-left: 32px;
+  padding-right: 32px;
 }
 
 .layout {
@@ -107,6 +107,7 @@
   overflow: hidden;
   min-height: 100%;
   background: #d8d0c4;
+  border-radius: 20px;
 }
 
 .photo {

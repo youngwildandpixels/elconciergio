@@ -9,9 +9,50 @@
   width: 100%;
   display: block;
   padding-left: clamp(28px, 10vw, 160px);
-  padding-right: clamp(14px, 5vw, 80px);
+  padding-right: clamp(28px, 10vw, 160px);
   margin-top: 8vh;
   margin-bottom: clamp(100px, 14vh, 230px);
+}
+
+.statsStrip {
+  width: min(100%, 1180px);
+  margin: 0 clamp(12px, 2vw, 28px) clamp(48px, 8vh, 90px) 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(20px, 5vw, 80px);
+  color: #1f1a17;
+}
+
+.statItem {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(10px, 1.2vw, 16px);
+  text-align: center;
+}
+
+.statValue {
+  display: block;
+  font-family: 'GT America', sans-serif;
+  font-size: clamp(38px, 5vw, 68px);
+  font-weight: 400;
+  line-height: 0.95;
+  letter-spacing: 0;
+  color: #1f1a17;
+  white-space: nowrap;
+}
+
+.statLabel {
+  display: block;
+  font-family: 'GT America Expanded', sans-serif;
+  font-size: clamp(11px, 1.35vw, 17px);
+  font-weight: 500;
+  line-height: 1.1;
+  letter-spacing: 0;
+  text-transform: uppercase;
+  color: rgba(31, 26, 23, 0.5);
 }
 
 .text {
@@ -24,4 +65,35 @@
   width: auto;
   max-width: none;
   margin: 0 clamp(12px, 2vw, 28px) 0 0;
+}
+
+@media (max-width: 760px) {
+  .sticky {
+    padding-left: clamp(20px, 7vw, 34px);
+    padding-right: clamp(20px, 7vw, 34px);
+    margin-top: 7vh;
+  }
+
+  .statsStrip {
+    grid-template-columns: 1fr;
+    gap: 26px;
+    margin-right: 0;
+    padding: 0;
+  }
+
+  .statItem {
+    gap: 8px;
+  }
+
+  .statValue {
+    font-size: clamp(38px, 13vw, 58px);
+  }
+
+  .statLabel {
+    font-size: clamp(11px, 3.4vw, 15px);
+  }
+
+  .text {
+    margin-right: 0;
+  }
 }
