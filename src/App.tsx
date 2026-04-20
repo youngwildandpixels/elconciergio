@@ -1,37 +1,44 @@
-import Navbar from './sections/Navbar';
-import Hero from './sections/Hero';
-import Stats from './sections/Stats';
-import Features from './sections/Features';
-import Solution from './sections/Solution';
-import FeaturesGrid from './sections/FeaturesGrid';
-import Testimonial from './sections/Testimonial';
-import GettingStarted from './sections/GettingStarted';
-import ROI from './sections/ROI';
-import AiDemo from './sections/AiDemo';
-import Pricing from './sections/Pricing';
-import FAQ from './sections/FAQ';
-import CTA from './sections/CTA';
-import Footer from './sections/Footer';
-import FloatingChat from './components/FloatingChat';
+import { useEffect } from 'react';
+import Lenis from 'lenis';
+import ScrollVideoHero from './sections/ScrollVideoHero';
+import ScrollRevealText from './sections/ScrollRevealText';
+import ScrollVideoScene02 from './sections/ScrollVideoScene02';
+import BenefitsAccordionSection from './sections/BenefitsAccordionSection';
 
 function App() {
+  useEffect(() => {
+    const lenis = new Lenis({
+      duration: 1.6,
+      easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), // expo ease-out
+      smoothWheel: true,
+      syncTouch: false,
+      wheelMultiplier: 1,
+      touchMultiplier: 2,
+    });
+
+    let rafId: number;
+    function raf(time: number) {
+      lenis.raf(time);
+      rafId = requestAnimationFrame(raf);
+    }
+    rafId = requestAnimationFrame(raf);
+
+    // Expose lenis on window so scroll listeners can use lenis.on('scroll') if needed
+    (window as unknown as Record<string, unknown>).__lenis = lenis;
+
+    return () => {
+      cancelAnimationFrame(rafId);
+      lenis.destroy();
+      delete (window as unknown as Record<string, unknown>).__lenis;
+    };
+  }, []);
+
   return (
-    <div style={{ background: 'var(--off-white)' }}>
-      <Navbar />
-      <Hero />
-      <Stats />
-      <Features />
-      <Solution />
-      <FeaturesGrid />
-      <Testimonial />
-      <GettingStarted />
-      <ROI />
-      <AiDemo />
-      <Pricing />
-      <FAQ />
-      <CTA />
-      <Footer />
-      <FloatingChat />
+    <div style={{ background: 'var(--site-bg)', overflowX: 'clip', width: '100%' }}>
+      <ScrollVideoHero />
+      <ScrollRevealText />
+      <ScrollVideoScene02 />
+      <BenefitsAccordionSection />
     </div>
   );
 }

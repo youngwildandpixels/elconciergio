@@ -1,0 +1,115 @@
+.container {
+  position: relative;
+  background: var(--site-bg);
+}
+
+.sticky {
+  position: sticky;
+  top: 0;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  background: #060910; /* fallback sombre derrière la vidéo */
+  transform-origin: center center;
+  margin: 0;
+}
+
+.video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 1;
+}
+
+/* ── Overlays de lisibilité ── */
+.gradientTopLeft {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  background: linear-gradient(
+    135deg,
+    rgba(0, 0, 0, 0.58) 0%,
+    rgba(0, 0, 0, 0.22) 45%,
+    transparent 70%
+  );
+}
+
+.darkVeil {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  background: rgba(0, 0, 0, 0.42);
+}
+
+/* ── Texte 1 : Avion (haut-gauche) ── */
+.textAir {
+  position: absolute;
+  top: clamp(36px, 7vh, 96px);
+  left: clamp(28px, 8vw, 120px);
+  max-width: 580px;
+  z-index: 3;
+  will-change: transform, opacity;
+}
+
+.titleAir {
+  font-family: 'GT America Expanded', sans-serif;
+  font-weight: 700;
+  font-size: clamp(26px, 3.4vw, 50px);
+  line-height: 1.05;
+  letter-spacing: -0.025em;
+  color: #ffffff;
+  margin: 0 0 18px;
+  text-wrap: balance;
+}
+
+.subtitleAir {
+  font-family: 'GT America', sans-serif;
+  font-weight: 400;
+  font-size: clamp(15px, 1.25vw, 18px);
+  line-height: 1.45;
+  color: rgba(255, 255, 255, 0.82);
+  margin: 0;
+  text-wrap: pretty;
+  max-width: 480px;
+}
+
+/* ── Texte 2 : Restaurant (centré) ── */
+.textRes {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 0 max(28px, 10vw);
+  z-index: 3;
+  will-change: transform, opacity;
+}
+
+.titleRes {
+  font-family: 'GT America Expanded', sans-serif;
+  font-weight: 700;
+  font-size: clamp(26px, 3.4vw, 50px);
+  line-height: 1.05;
+  letter-spacing: -0.025em;
+  color: #ffffff;
+  margin: 0 auto 18px;
+  text-wrap: balance;
+  max-width: 720px;
+}
+
+.subtitleRes {
+  font-family: 'GT America', sans-serif;
+  font-weight: 400;
+  font-size: clamp(15px, 1.25vw, 18px);
+  line-height: 1.45;
+  color: rgba(255, 255, 255, 0.85);
+  margin: 0 auto;
+  text-wrap: pretty;
+  max-width: 560px;
+}

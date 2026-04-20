@@ -1,0 +1,164 @@
+.section {
+  background: #f2eee7;
+  color: #1f1a17;
+  width: 100%;
+  padding-left: 10vw;
+  padding-right: 10vw;
+}
+
+.layout {
+  min-height: min(86vh, 920px);
+  display: grid;
+  grid-template-columns: minmax(360px, 1.15fr) minmax(320px, 0.85fr);
+}
+
+.left {
+  padding: clamp(28px, 5vw, 72px) clamp(24px, 5vw, 64px) clamp(28px, 5vw, 72px);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.kicker {
+  font-family: 'GT America Expanded', sans-serif;
+  font-size: 12px;
+  letter-spacing: 2.4px;
+  text-transform: uppercase;
+  color: rgba(31, 26, 23, 0.72);
+  margin: 0 0 clamp(32px, 5vh, 58px);
+}
+
+.accordion {
+  border-top: 1px solid rgba(31, 26, 23, 0.14);
+}
+
+.item {
+  border-bottom: 1px solid rgba(31, 26, 23, 0.14);
+}
+
+.row {
+  width: 100%;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  text-align: left;
+  padding: clamp(14px, 1.8vw, 20px) 0;
+  transition: color 220ms ease;
+}
+
+.row:hover {
+  color: #000;
+}
+
+.rowTitle {
+  font-family: 'GT America Expanded', sans-serif;
+  font-size: clamp(27px, 2.7vw, 43px);
+  line-height: 0.95;
+  letter-spacing: -0.02em;
+}
+
+.rowIcon {
+  font-family: 'GT America', sans-serif;
+  font-size: clamp(24px, 2.2vw, 34px);
+  font-weight: 400;
+  line-height: 1;
+  width: 30px;
+  text-align: center;
+  opacity: 0.9;
+  flex-shrink: 0;
+}
+
+.itemActive .rowTitle {
+  color: #000;
+}
+
+.panel {
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition:
+    max-height 360ms cubic-bezier(0.25, 0.8, 0.25, 1),
+    opacity 220ms ease;
+}
+
+.panelOpen {
+  max-height: 240px;
+  opacity: 1;
+}
+
+.panelText {
+  max-width: 620px;
+  margin: 0;
+  padding: 2px 0 clamp(16px, 2vw, 24px);
+  font-family: 'GT America', sans-serif;
+  font-size: clamp(18px, 1.2vw, 23px);
+  line-height: 1.34;
+  color: rgba(31, 26, 23, 0.88);
+  text-wrap: balance;
+}
+
+.right {
+  position: relative;
+  overflow: hidden;
+  min-height: 100%;
+  background: #d8d0c4;
+}
+
+.photo {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transform: scale(1.05);
+  transition:
+    opacity 340ms ease,
+    transform 900ms cubic-bezier(0.2, 0.75, 0.2, 1);
+  will-change: opacity, transform;
+}
+
+.photoActive {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.photoVignette {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(90deg, rgba(242, 238, 231, 0.05) 0%, rgba(242, 238, 231, 0) 27%),
+    linear-gradient(0deg, rgba(0, 0, 0, 0.12) 0%, rgba(0, 0, 0, 0) 42%);
+}
+
+@media (max-width: 1040px) {
+  .layout {
+    grid-template-columns: 1fr;
+  }
+
+  .left {
+    padding: 28px 20px 24px;
+  }
+
+  .rowTitle {
+    font-size: clamp(24px, 8vw, 44px);
+  }
+
+  .panelOpen {
+    max-height: 320px;
+  }
+
+  .panelText {
+    font-size: clamp(17px, 4.4vw, 22px);
+  }
+
+  .right {
+    min-height: 58vh;
+  }
+}

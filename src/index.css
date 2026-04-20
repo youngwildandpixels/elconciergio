@@ -1,279 +1,77 @@
+/* ── GT America ── */
+@font-face {
+  font-family: 'GT America';
+  src: url('/font/gt-america-standard-regular.woff') format('woff');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'GT America';
+  src: url('/font/gt-america-standard-bold.woff') format('woff');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'GT America Expanded';
+  src: url('/font/gt-america-expanded-regular.woff') format('woff');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'GT America Expanded';
+  src: url('/font/gt-america-expanded-medium.woff') format('woff');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'GT America Expanded';
+  src: url('/font/gt-america-expanded-bold-webfont.woff') format('woff');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'GT America Expanded';
+  src: url('/font/gt-america-expanded-black.woff') format('woff');
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer base {
   :root {
-    /* El Conciergio Design System */
-    --green:       #25D366;
-    --green-dark:  #128C7E;
-    --green-deep:  #075E54;
-    --green-light: #E8F5EE;
-    --black:       #1A1A1A;
-    --white:       #FFFFFF;
-    --off-white:   #FAFAF8;
-    --gray-text:   #555555;
-    --gray-muted:  #888888;
-    --gray-light:  #F0F2F5;
-    --gold:        #C9A84C;
-    --border:      #E9EDEF;
-
-    /* shadcn compatibility */
-    --background: 0 0% 100%;
-    --foreground: 0 0% 10%;
-    --card: 0 0% 100%;
-    --card-foreground: 0 0% 10%;
-    --popover: 0 0% 100%;
-    --popover-foreground: 0 0% 10%;
-    --primary: 145 63% 49%;
-    --primary-foreground: 0 0% 100%;
-    --secondary: 145 63% 96%;
-    --secondary-foreground: 0 0% 10%;
-    --muted: 0 0% 96%;
-    --muted-foreground: 0 0% 40%;
-    --accent: 145 63% 96%;
-    --accent-foreground: 0 0% 10%;
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 0 0% 98%;
+    --site-bg: #f2eee7;
+    --green: #25D366;
+    --green-dark: #128C7E;
+    --black: #000;
     --border: 0 0% 91%;
-    --input: 0 0% 91%;
     --ring: 145 63% 49%;
     --radius: 0.75rem;
   }
-}
 
-@layer base {
-  * {
-    @apply border-border;
-    box-sizing: border-box;
-  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
   html {
     scroll-behavior: smooth;
+    background: var(--site-bg);
+    overscroll-behavior: none;
   }
+
   body {
-    background-color: var(--off-white);
-    color: var(--black);
-    font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: var(--site-bg);
+    color: #1f1a17;
+    font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    overscroll-behavior: none;
+    overflow-x: clip;
   }
-  h1, h2, h3, h4 {
-    font-family: Georgia, 'Times New Roman', serif;
-  }
 }
-
-/* ── TYPOGRAPHY ── */
-.font-serif {
-  font-family: Georgia, 'Times New Roman', serif;
-}
-.font-sans {
-  font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
-}
-
-/* ── SECTION LABEL ── */
-.section-label {
-  display: inline-block;
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 2.5px;
-  text-transform: uppercase;
-  color: var(--green);
-  margin-bottom: 12px;
-  font-family: 'DM Sans', sans-serif;
-}
-
-/* ── SCROLL REVEAL ── */
-.reveal {
-  opacity: 0;
-  transform: translateY(24px);
-  transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1),
-              transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-}
-.reveal.visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-.reveal-delay-1 { transition-delay: 100ms; }
-.reveal-delay-2 { transition-delay: 200ms; }
-.reveal-delay-3 { transition-delay: 300ms; }
-.reveal-delay-4 { transition-delay: 400ms; }
-.reveal-delay-5 { transition-delay: 500ms; }
-.reveal-delay-6 { transition-delay: 600ms; }
-.reveal-delay-7 { transition-delay: 700ms; }
-.reveal-delay-8 { transition-delay: 800ms; }
-
-/* ── BUTTONS ── */
-.btn-primary {
-  background: var(--green);
-  color: white;
-  padding: 14px 28px;
-  border-radius: 999px;
-  font-weight: 600;
-  font-size: 15px;
-  box-shadow: 0 4px 20px rgba(37,211,102,0.35);
-  transition: transform 0.18s ease, box-shadow 0.18s ease;
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  cursor: pointer;
-  border: none;
-  text-decoration: none;
-  font-family: 'DM Sans', sans-serif;
-}
-.btn-primary:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 28px rgba(37,211,102,0.45);
-}
-.btn-secondary {
-  background: transparent;
-  color: var(--black);
-  padding: 13px 27px;
-  border: 1.5px solid var(--border);
-  border-radius: 999px;
-  font-weight: 500;
-  font-size: 15px;
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  cursor: pointer;
-  text-decoration: none;
-  transition: border-color 0.18s ease, color 0.18s ease;
-  font-family: 'DM Sans', sans-serif;
-}
-.btn-secondary:hover {
-  border-color: var(--green);
-  color: var(--green);
-}
-
-/* ── CARDS ── */
-.card {
-  background: white;
-  border: 1px solid var(--border);
-  border-radius: 16px;
-  padding: 28px;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.06);
-  transition: box-shadow 0.25s ease, transform 0.25s ease;
-}
-.card:hover {
-  box-shadow: 0 8px 32px rgba(0,0,0,0.10);
-  transform: translateY(-3px);
-}
-
-/* ── TYPING INDICATOR ── */
-@keyframes typingBounce {
-  0%, 60%, 100% { transform: translateY(0); opacity: 0.4; }
-  30% { transform: translateY(-4px); opacity: 1; }
-}
-.typing-dot {
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  background: #94a3b8;
-  animation: typingBounce 1.2s ease-in-out infinite;
-}
-.typing-dot:nth-child(2) { animation-delay: 0.15s; }
-.typing-dot:nth-child(3) { animation-delay: 0.30s; }
-
-/* ── PHONE BUBBLE ENTRANCE ── */
-@keyframes bubbleIn {
-  from { opacity: 0; transform: translateY(8px) scale(0.97); }
-  to   { opacity: 1; transform: translateY(0) scale(1); }
-}
-.bubble-enter {
-  animation: bubbleIn 0.3s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
-}
-
-/* ── FLOAT ANIMATION (phone) ── */
-@keyframes phoneFloat {
-  0%, 100% { transform: translateY(0) rotate(2deg); }
-  50%       { transform: translateY(-12px) rotate(2deg); }
-}
-.phone-float {
-  animation: phoneFloat 5s ease-in-out infinite;
-}
-
-/* ── HERO GLOW ── */
-.hero-glow {
-  position: absolute;
-  border-radius: 50%;
-  filter: blur(80px);
-  pointer-events: none;
-}
-
-/* ── NAV SHADOW ON SCROLL ── */
-.nav-scrolled {
-  box-shadow: 0 2px 20px rgba(0,0,0,0.08);
-  background: rgba(250, 250, 248, 0.97);
-  backdrop-filter: blur(12px);
-}
-
-/* ── ACCORDION ── */
-.faq-content {
-  max-height: 0;
-  overflow: hidden;
-  transition: max-height 0.35s cubic-bezier(0.4, 0, 0.2, 1),
-              opacity 0.3s ease;
-  opacity: 0;
-}
-.faq-content.open {
-  max-height: 500px;
-  opacity: 1;
-}
-
-/* ── NUMBER GLOW (WhatsApp stats) ── */
-.stat-number {
-  font-family: Georgia, serif;
-  background: linear-gradient(135deg, var(--green) 0%, var(--green-dark) 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-/* ── GRADIENT BACKGROUND MESH ── */
-.mesh-bg {
-  background-color: var(--off-white);
-  background-image:
-    radial-gradient(ellipse 60% 50% at 80% 20%, rgba(37,211,102,0.07) 0%, transparent 60%),
-    radial-gradient(ellipse 40% 60% at 10% 80%, rgba(37,211,102,0.05) 0%, transparent 60%);
-}
-
-/* ── WHATSAPP CHAT WALLPAPER ── */
-.wa-wallpaper {
-  background-color: #E5DDD5;
-  background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23c9a884' fill-opacity='0.08'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
-}
-
-/* ── STICKY WHATSAPP BUTTON ── */
-.wa-sticky {
-  display: none;
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  z-index: 1000;
-  background: var(--green);
-  color: white;
-  border-radius: 999px;
-  padding: 14px 22px;
-  font-weight: 600;
-  font-size: 14px;
-  box-shadow: 0 8px 32px rgba(37,211,102,0.4);
-  align-items: center;
-  gap: 8px;
-  cursor: pointer;
-  text-decoration: none;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-  font-family: 'DM Sans', sans-serif;
-}
-.wa-sticky:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 12px 40px rgba(37,211,102,0.5);
-}
-@media (max-width: 768px) {
-  .wa-sticky { display: flex; }
-}
-
-/* ── CUSTOM SCROLLBAR ── */
-::-webkit-scrollbar { width: 6px; }
-::-webkit-scrollbar-track { background: transparent; }
-::-webkit-scrollbar-thumb { background: #d1d5db; border-radius: 3px; }
-::-webkit-scrollbar-thumb:hover { background: #9ca3af; }

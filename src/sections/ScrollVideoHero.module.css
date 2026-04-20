@@ -1,0 +1,200 @@
+.container {
+  position: relative;
+  height: 700vh; /* fallback avant que la durée vidéo soit connue */
+  background: var(--site-bg);
+}
+
+.sticky {
+  position: sticky;
+  top: 0;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  background: var(--site-bg);
+  transform-origin: top center;
+  margin: 0;
+}
+
+.startImage {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  z-index: 2;
+  opacity: 1;
+  transition: opacity 260ms ease;
+  pointer-events: none;
+}
+
+.video {
+  position: absolute;
+  top: -15%;
+  left: 0;
+  width: 100%;
+  height: 130%;
+  object-fit: cover;
+  z-index: 1;
+  opacity: 0;
+  transition: opacity 260ms ease;
+}
+
+/* ── Overlays ── */
+.overlay {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.blurLeft {
+  z-index: 2;
+  background: rgba(6, 9, 16, 0.26);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  mask-image: linear-gradient(90deg, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.72) 34%, rgba(0,0,0,0) 72%);
+  -webkit-mask-image: linear-gradient(90deg, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.72) 34%, rgba(0,0,0,0) 72%);
+}
+
+.gradientLeft {
+  background: linear-gradient(108deg, rgba(0,0,0,0.72) 0%, rgba(0,0,0,0.28) 46%, transparent 68%);
+  z-index: 3;
+}
+
+.darkVeil {
+  background: rgba(0,0,0,0.46);
+  z-index: 3;
+}
+
+/* ── Texte de départ ── */
+.startText {
+  position: absolute;
+  left: clamp(28px, 8vw, 120px);
+  top: 50%;
+  max-width: 560px;
+  z-index: 4;
+}
+
+.label {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 22px;
+  padding: 6px 14px;
+  border-radius: 999px;
+  border: 1px solid rgba(37,211,102,0.40);
+  background: rgba(37,211,102,0.11);
+}
+
+.labelDot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #25D366;
+  display: inline-block;
+  box-shadow: 0 0 0 3px rgba(37,211,102,0.25);
+  flex-shrink: 0;
+}
+
+.labelText {
+  font-size: 11px;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: #25D366;
+  font-family: 'GT America', sans-serif;
+  font-weight: 600;
+}
+
+.h1 {
+  font-family: 'GT America Expanded', sans-serif;
+  font-weight: 700;
+  font-size: clamp(30px, 3.6vw, 54px);
+  line-height: 1;
+  margin: 0 0 22px;
+  letter-spacing: -0.02em;
+  color: white;
+}
+
+.subtext {
+  font-family: 'GT America Expanded', sans-serif;
+  font-weight: 400;
+  font-size: clamp(15px, 1.3vw, 19px);
+  color: rgba(255,255,255,0.8);
+  margin: 0;
+  line-height: 1.1;
+  letter-spacing: 0.2px;
+}
+
+.scrollIndicator {
+  margin-top: 48px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.scrollLabel {
+  font-size: 11px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.36);
+  font-family: 'GT America', sans-serif;
+}
+
+/* ── Texte final ── */
+.endText {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 0 max(28px, 10vw);
+  z-index: 4;
+}
+
+.h2 {
+  font-family: 'GT America Expanded', sans-serif;
+  font-size: clamp(24px, 3.2vw, 48px);
+  color: white;
+  margin: 0 0 16px;
+  letter-spacing: -0.025em;
+  line-height: 1.1;
+  font-weight: 600;
+  max-width: 640px;
+}
+
+.endP {
+  font-family: 'GT America Expanded', sans-serif;
+  font-weight: 400;
+  font-size: clamp(15px, 1.3vw, 19px);
+  color: rgba(255,255,255,0.8);
+  margin: 0;
+  line-height: 1.25;
+  letter-spacing: 0.2px;
+  max-width: 560px;
+  text-wrap: balance;
+}
+
+/* ── Barre de progression ── */
+.progressBar {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 2px;
+  background: linear-gradient(90deg, rgba(37,211,102,0.45), #25D366);
+  z-index: 5;
+  box-shadow: 0 0 10px rgba(37,211,102,0.4);
+}
+
+/* ── RevealLine ── */
+.revealOuter {
+  display: block;
+  overflow: hidden;
+  padding: 8px 0;
+  margin: -8px 0;
+}
+
+.revealInner {
+  display: block;
+}

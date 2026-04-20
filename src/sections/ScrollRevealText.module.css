@@ -1,0 +1,27 @@
+.container {
+  position: relative;
+  background: var(--site-bg);
+  overflow: visible;
+}
+
+.sticky {
+  position: relative;
+  width: 100%;
+  display: block;
+  padding-left: clamp(28px, 10vw, 160px);
+  padding-right: clamp(14px, 5vw, 80px);
+  margin-top: 8vh;
+  margin-bottom: clamp(100px, 14vh, 230px);
+}
+
+.text {
+  font-family: 'GT America Expanded', sans-serif;
+  font-weight: 700;
+  font-size: clamp(24px, 3.6vw, 56px);
+  line-height: 1.1;
+  letter-spacing: -0.025em;
+  color: #000;
+  width: auto;
+  max-width: none;
+  margin: 0 clamp(12px, 2vw, 28px) 0 0;
+}
