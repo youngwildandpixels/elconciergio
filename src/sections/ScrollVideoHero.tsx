@@ -40,8 +40,16 @@ export default function ScrollVideoHero() {
       video.currentTime = 0;
     };
 
-    if (video.readyState >= 1) apply();
-    else video.addEventListener('loadedmetadata', apply, { once: true });
+    const prime = () => {
+      apply();
+      // iOS requires a play() before currentTime seeking works reliably
+      const p = video.play();
+      if (p !== undefined) p.then(() => video.pause()).catch(() => {});
+    };
+
+    video.load();
+    if (video.readyState >= 1) prime();
+    else video.addEventListener('loadedmetadata', prime, { once: true });
   }, []);
 
   /* ── Scroll → DOM direct, zéro re-render ── */

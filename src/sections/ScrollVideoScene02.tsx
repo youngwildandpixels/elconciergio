@@ -91,9 +91,17 @@ export default function ScrollVideoScene02() {
       if (video.readyState >= 2) video.currentTime = 0;
     };
 
+    const prime = () => {
+      apply();
+      video.currentTime = 0;
+      const p = video.play();
+      if (p !== undefined) p.then(() => video.pause()).catch(() => {});
+    };
+
     apply();
     window.addEventListener('resize', apply);
-    video.addEventListener('loadedmetadata', () => { apply(); video.currentTime = 0; }, { once: true });
+    video.load();
+    video.addEventListener('loadedmetadata', prime, { once: true });
     return () => window.removeEventListener('resize', apply);
   }, []);
 

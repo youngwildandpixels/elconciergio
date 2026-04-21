@@ -72,6 +72,21 @@ export default function ScrollRevealGrid() {
     return () => window.removeEventListener('resize', apply);
   }, []);
 
+  /* ── Prime videos for iOS seeking ── */
+  useEffect(() => {
+    const videos = [videoARef.current, videoBRef.current, videoCRef.current];
+    videos.forEach((video) => {
+      if (!video) return;
+      const prime = () => {
+        const p = video.play();
+        if (p !== undefined) p.then(() => video.pause()).catch(() => {});
+      };
+      video.load();
+      if (video.readyState >= 1) prime();
+      else video.addEventListener('loadedmetadata', prime, { once: true });
+    });
+  }, []);
+
   /* ── RAF loop ── */
   useEffect(() => {
     const container = containerRef.current;
