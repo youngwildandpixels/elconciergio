@@ -69,8 +69,8 @@
 
 @media (max-width: 760px) {
   .sticky {
-    padding-left: clamp(20px, 7vw, 34px);
-    padding-right: clamp(20px, 7vw, 34px);
+    padding-left: clamp(10px, 3.5vw, 17px);
+    padding-right: clamp(10px, 3.5vw, 17px);
     margin-top: 7vh;
   }
 

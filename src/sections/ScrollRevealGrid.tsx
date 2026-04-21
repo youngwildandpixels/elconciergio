@@ -55,9 +55,9 @@ export default function ScrollRevealGrid() {
   const videoARef    = useRef<HTMLVideoElement>(null);
   const videoBRef    = useRef<HTMLVideoElement>(null);
   const videoCRef    = useRef<HTMLVideoElement>(null);
-  const textARef     = useRef<HTMLDivElement>(null);  // h2 only — anchored bottom-left
-  const textATopRef  = useRef<HTMLDivElement>(null);  // label + sub — top-left, fades out
-  const h2ARef       = useRef<HTMLHeadingElement>(null);
+  const textARef     = useRef<HTMLDivElement>(null);  // full bottom-left group
+  const textATopRef  = useRef<HTMLDivElement>(null);  // label wrapper — fades out on shrink
+  const textASubRef  = useRef<HTMLDivElement>(null);  // sub wrapper — fades out on shrink
   const textBRef     = useRef<HTMLDivElement>(null);
   const textCRef     = useRef<HTMLDivElement>(null);
   const veilCRef     = useRef<HTMLDivElement>(null);
@@ -79,14 +79,13 @@ export default function ScrollRevealGrid() {
     const leftCol   = leftColRef.current;
     const rightCol  = rightColRef.current;
     const blockA    = blockARef.current;
-    const blockB    = blockBRef.current;
     const blockC    = blockCRef.current;
     const videoA    = videoARef.current;
     const videoB    = videoBRef.current;
     const videoC    = videoCRef.current;
     const textA     = textARef.current;
     const textATop  = textATopRef.current;
-    const h2A       = h2ARef.current;
+    const textASub  = textASubRef.current;
     const textB     = textBRef.current;
     const textC     = textCRef.current;
     const veilC     = veilCRef.current;
@@ -99,39 +98,58 @@ export default function ScrollRevealGrid() {
       const scrollable = container.offsetHeight - window.innerHeight;
 
       if (scrollable > 0) {
-        const cp = clamp(-rect.top / scrollable, 0, 1);
+        const cp  = clamp(-rect.top / scrollable, 0, 1);
+        const mob = window.innerWidth <= 760;
 
-        /* ── Block B — left col grows 0%→70%, right col shrinks 100%→30% ── */
-        const bBP    = easeOut3(prog(cp, ...T.BLOCK_B));
-        const leftW  = bBP * 70;
-        const colGap = bBP * GAP;
-
-        grid.style.columnGap = `${colGap}px`;
-        if (leftCol) {
-          leftCol.style.flexBasis = `${leftW}%`;
-          leftCol.style.opacity   = String(clamp(bBP * 4, 0, 1));
-        }
-        if (rightCol) rightCol.style.flexBasis = `calc(${100 - leftW}% - ${colGap}px)`;
-
-        /* ── Block A text — top group fades out, h2 stays + font-size lerps ── */
+        const bBP      = easeOut3(prog(cp, ...T.BLOCK_B));
+        const bCP      = easeOut3(prog(cp, ...T.BLOCK_C));
         const shrinkOp = clamp(1 - bBP * 2.5, 0, 1);
-        if (h2A) {
-          const minPx  = (22 - bBP * 9).toFixed(1);
-          const prefVw = (2.6 - bBP * 1.2).toFixed(2);
-          const maxPx  = (42 - bBP * 20).toFixed(1);
-          h2A.style.fontSize = `clamp(${minPx}px, ${prefVw}vw, ${maxPx}px)`;
-        }
 
-        /* ── Block C — slides up below Block A (inside rightCol) ── */
-        const bCP    = easeOut3(prog(cp, ...T.BLOCK_C));
-        const cH     = bCP * 50;   // 0 → 50% of rightCol height
-        const rowGap = bCP * GAP;
+        if (mob) {
+          /* ── Mobile: A top (shrinks → 30%), B slides up (→ 50%), C slides up bottom (→ 20%) ── */
+          const vh    = window.innerHeight;
+          const GAP_M = 10;
 
-        if (rightCol) rightCol.style.rowGap   = `${rowGap}px`;
-        if (blockA)   blockA.style.flexBasis  = `calc(${100 - cH}% - ${rowGap}px)`;
-        if (blockC)   {
-          blockC.style.flexBasis = `${cH}%`;
-          blockC.style.opacity   = String(clamp(bCP * 4, 0, 1));
+          const gap1   = bBP * GAP_M;          // between A and B
+          const gap2   = bCP * GAP_M;          // between B and C
+          const usable = vh - gap1 - gap2;
+
+          const aH = vh - bBP * (vh - 0.30 * usable);        // 100vh → 30%
+          const bH = bBP * (0.70 - bCP * 0.20) * usable;      // 0 → 70% → 50%
+          const cH = bCP * 0.20 * usable;                      // 0 → 20%
+
+          if (blockA) { blockA.style.height = `${aH}px`; blockA.style.flexBasis = ''; }
+          if (leftCol) {
+            leftCol.style.top     = `${aH + gap1}px`;
+            leftCol.style.bottom  = '';
+            leftCol.style.height  = `${bH}px`;
+            leftCol.style.opacity = String(clamp(bBP * 4, 0, 1));
+          }
+          if (blockC) {
+            blockC.style.height  = `${cH}px`;
+            blockC.style.opacity = String(clamp(bCP * 4, 0, 1));
+          }
+          grid.style.columnGap = '0';
+          if (rightCol) { rightCol.style.flexBasis = ''; rightCol.style.rowGap = '0'; }
+
+        } else {
+          /* ── Desktop: B slides in left (0%→70%), C slides up in rightCol (0%→50%) ── */
+          const leftW  = bBP * 70;
+          const colGap = bBP * GAP;
+
+          grid.style.columnGap = `${colGap}px`;
+          if (leftCol) {
+            leftCol.style.flexBasis = `${leftW}%`;
+            leftCol.style.height    = '';
+            leftCol.style.opacity   = String(clamp(bBP * 4, 0, 1));
+          }
+          if (rightCol) rightCol.style.flexBasis = `calc(${100 - leftW}% - ${colGap}px)`;
+
+          const cH     = bCP * 50;
+          const rowGap = bCP * GAP;
+          if (rightCol) rightCol.style.rowGap  = `${rowGap}px`;
+          if (blockA)   { blockA.style.flexBasis = `calc(${100 - cH}% - ${rowGap}px)`; blockA.style.height = ''; }
+          if (blockC)   { blockC.style.flexBasis = `${cH}%`; blockC.style.height = ''; blockC.style.opacity = String(clamp(bCP * 4, 0, 1)); }
         }
 
         /* ── Video scrub — each plays in its own range ── */
@@ -153,11 +171,17 @@ export default function ScrollRevealGrid() {
           textA.style.transform = `translateY(${(1 - rA) * 16}px)`;
           textA.style.filter    = `blur(${(1 - rA) * 6}px)`;
         }
-        // label + sub — reveals then fades out with Block B
+        // label + sub — fade out AND collapse height so h2 stays at bottom
         if (textATop) {
-          textATop.style.opacity   = String(Math.pow(clamp(rA, 0, 1), 0.6) * shrinkOp);
-          textATop.style.transform = `translateY(${(1 - rA) * 16}px)`;
-          textATop.style.filter    = `blur(${(1 - rA) * 6}px)`;
+          textATop.style.opacity  = String(shrinkOp);
+          textATop.style.maxHeight = shrinkOp > 0 ? '120px' : '0';
+          textATop.style.overflow  = 'hidden';
+          textATop.style.marginBottom = shrinkOp > 0 ? '' : '0';
+        }
+        if (textASub) {
+          textASub.style.opacity  = String(shrinkOp);
+          textASub.style.maxHeight = shrinkOp > 0 ? '120px' : '0';
+          textASub.style.overflow  = 'hidden';
         }
         reveal(textB, easeOut3(prog(cp, ...T.TEXT_B)));
         const rC = easeOut3(prog(cp, ...T.TEXT_C));
@@ -210,20 +234,21 @@ export default function ScrollRevealGrid() {
                 className={s.video}
               />
               <div className={s.blockAGrad} />
-              {/* Label + sub — top-left, fades out as Block B enters */}
-              <div ref={textATopRef} className={s.textATop} style={{ opacity: 0 }}>
-                <span className={s.label}>Fidélisation client</span>
-                <p className={s.sub}>
-                  El Conciergio maintient le lien avec vos voyageurs —
-                  anniversaires, nouvelles saisons, occasions spéciales.
-                  Automatiquement, sur WhatsApp.
-                </p>
-              </div>
-              {/* H2 — bottom-left, stays and wraps when narrow */}
+              {/* label → h2 → sub — bottom-left; label+sub fade out as Block B enters */}
               <div ref={textARef} className={s.textA} style={{ opacity: 0 }}>
-                <h2 ref={h2ARef} className={s.titleLg}>
+                <div ref={textATopRef}>
+                  <span className={s.label}>Fidélisation client</span>
+                </div>
+                <h2 className={s.titleSm}>
                   Une relation qui continue,<br />même après le séjour
                 </h2>
+                <div ref={textASubRef}>
+                  <p className={s.sub}>
+                    El Conciergio maintient le lien avec vos voyageurs —
+                    anniversaires, nouvelles saisons, occasions spéciales.
+                    Automatiquement, sur WhatsApp.
+                  </p>
+                </div>
               </div>
             </div>
 
