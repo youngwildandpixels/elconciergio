@@ -3,6 +3,7 @@ import Lenis from 'lenis';
 import ScrollVideoHero from './sections/ScrollVideoHero';
 import ScrollRevealText from './sections/ScrollRevealText';
 import ScrollVideoScene02 from './sections/ScrollVideoScene02';
+import ScrollRevealGrid from './sections/ScrollRevealGrid';
 import BenefitsAccordionSection from './sections/BenefitsAccordionSection';
 
 function App() {
@@ -38,6 +39,7 @@ function App() {
       <ScrollVideoHero />
       <ScrollRevealText />
       <ScrollVideoScene02 />
+      <ScrollRevealGrid />
       <BenefitsAccordionSection />
     </div>
   );

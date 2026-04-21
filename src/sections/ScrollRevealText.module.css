@@ -16,7 +16,7 @@
 
 .statsStrip {
   width: min(100%, 1180px);
-  margin: 0 clamp(12px, 2vw, 28px) clamp(48px, 8vh, 90px) 0;
+  margin: 0 auto clamp(48px, 8vh, 90px);
   padding: 0;
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -36,7 +36,7 @@
 .statValue {
   display: block;
   font-family: 'GT America', sans-serif;
-  font-size: clamp(38px, 5vw, 68px);
+  font-size: clamp(30px, 4vw, 56px);
   font-weight: 400;
   line-height: 0.95;
   letter-spacing: 0;
@@ -47,7 +47,7 @@
 .statLabel {
   display: block;
   font-family: 'GT America Expanded', sans-serif;
-  font-size: clamp(11px, 1.35vw, 17px);
+  font-size: clamp(10px, 1.2vw, 15px);
   font-weight: 500;
   line-height: 1.1;
   letter-spacing: 0;
@@ -75,8 +75,8 @@
   }
 
   .statsStrip {
-    grid-template-columns: 1fr;
-    gap: 26px;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: clamp(8px, 3vw, 20px);
     margin-right: 0;
     padding: 0;
   }
@@ -86,11 +86,11 @@
   }
 
   .statValue {
-    font-size: clamp(38px, 13vw, 58px);
+    font-size: clamp(24px, 8vw, 40px);
   }
 
   .statLabel {
-    font-size: clamp(11px, 3.4vw, 15px);
+    font-size: clamp(9px, 2.6vw, 12px);
   }
 
   .text {

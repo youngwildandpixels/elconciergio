@@ -30,7 +30,7 @@ const MSG_TYPE_WINDOW = 0.05;
 // Premier message: start 0.18, fini à 0.23 → FREEZE_1_OUT
 // Dernier message: start 0.54, fini à 0.59 → MSG_FADE_OUT
 const T = {
-  FREEZE_1_IN:     0.06,
+  FREEZE_1_IN:     0.00,
   FREEZE_1_OUT:    0.23,  // = MESSAGES[0].start + MSG_TYPE_WINDOW → video reprend, h2s out
   MSG_FADE_OUT:    [0.59, 0.65] as const,  // = MESSAGES[3].start + MSG_TYPE_WINDOW
   FREEZE_2_START:  0.78,
@@ -76,6 +76,7 @@ export default function ScrollVideoScene02() {
   const titleBottomLeftRef = useRef<HTMLElement>(null);
   const titleCenterRef   = useRef<HTMLElement>(null);
   const subtitleCenterRef = useRef<HTMLElement>(null);
+  const pillsRef         = useRef<(HTMLSpanElement | null)[]>([]);
   const veilRef          = useRef<HTMLDivElement>(null);
   const msgRefs          = useRef<(HTMLDivElement | null)[]>([]);
 
@@ -105,6 +106,7 @@ export default function ScrollVideoScene02() {
     const titleBottomLeft = titleBottomLeftRef.current;
     const titleCenter    = titleCenterRef.current;
     const subtitleCenter = subtitleCenterRef.current;
+    const pills          = pillsRef.current;
     const veil           = veilRef.current;
     if (!container || !sticky || !video) return;
 
@@ -145,6 +147,7 @@ export default function ScrollVideoScene02() {
           reveal(titleBottomLeft, 0);
           reveal(titleCenter, 0);
           reveal(subtitleCenter, 0);
+          pills.forEach(p => reveal(p, 0));
           if (veil) veil.style.opacity = '0';
           msgRefs.current.forEach(el => {
             if (!el) return;
@@ -168,7 +171,7 @@ export default function ScrollVideoScene02() {
         }
 
         /* ── titleMain — FREEZE 1 uniquement ── */
-        const f1Out = 1 - lerp(containerP, T.FREEZE_1_OUT, T.FREEZE_1_OUT + 0.05, 0, 1);
+        const f1Out = 1 - lerp(containerP, T.MSG_FADE_OUT[0], T.MSG_FADE_OUT[1], 0, 1);
         reveal(titleTopLeft,    lerp(containerP, T.FREEZE_1_IN,        T.FREEZE_1_IN + 0.08, 0, 1) * f1Out);
         reveal(titleBottomLeft, lerp(containerP, T.FREEZE_1_IN + 0.08, T.FREEZE_1_IN + 0.16, 0, 1) * f1Out);
 
@@ -194,9 +197,13 @@ export default function ScrollVideoScene02() {
           el.style.transform = `translateY(${(1 - appearP) * 14}px) scale(${0.90 + appearP * 0.10})`;
         });
 
-        /* ── titleCenter + subtitleCenter ── */
+        /* ── titleCenter + subtitleCenter + pastilles ── */
         reveal(titleCenter,    lerp(containerP, T.TITLE_CENTER_IN,        T.TITLE_CENTER_IN + 0.08, 0, 1));
         reveal(subtitleCenter, lerp(containerP, T.TITLE_CENTER_IN + 0.06, T.TITLE_CENTER_IN + 0.14, 0, 1));
+        pills.forEach((pill, i) => {
+          const start = T.TITLE_CENTER_IN + 0.08 + i * 0.03;
+          reveal(pill, lerp(containerP, start, start + 0.07, 0, 1));
+        });
 
         /* ── Dark veil — arrive avec textCenter ── */
         const veilOp = lerp(containerP, T.TITLE_CENTER_IN, T.TITLE_CENTER_IN + 0.06, 0, 1);
@@ -254,6 +261,26 @@ export default function ScrollVideoScene02() {
               <span data-text="" />
               <span className={s.bubbleTail} />
             </div>
+          ))}
+        </div>
+
+        {/* Pastilles */}
+        <div className={s.pillsRow} aria-hidden>
+          {[
+            'Vos adresses fétiches',
+            'Vos partenaires locaux',
+            'Recommandations sur mesure',
+            'Bons plans du quartier',
+          ].map((label, i) => (
+            <span
+              key={i}
+              ref={el => { pillsRef.current[i] = el; }}
+              className={s.pill}
+              style={{ opacity: 0 }}
+            >
+              <span className={s.pillDot} />
+              {label}
+            </span>
           ))}
         </div>
 

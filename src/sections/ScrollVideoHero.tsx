@@ -25,6 +25,8 @@ export default function ScrollVideoHero() {
   const reveal1InnerRef   = useRef<HTMLSpanElement>(null);
   const reveal2OuterRef   = useRef<HTMLSpanElement>(null);
   const reveal2InnerRef   = useRef<HTMLSpanElement>(null);
+  const statPillRefs      = useRef<(HTMLDivElement | null)[]>([]);
+  const tickerRef         = useRef<HTMLDivElement>(null);
 
   /* ── Hauteur container ── */
   useEffect(() => {
@@ -57,6 +59,8 @@ export default function ScrollVideoHero() {
     const progressBar  = progressBarRef.current;
     const r1Inner      = reveal1InnerRef.current;
     const r2Inner      = reveal2InnerRef.current;
+    const statPills    = statPillRefs.current;
+    const ticker       = tickerRef.current;
 
     if (!video || !container || !sticky) return;
 
@@ -112,6 +116,7 @@ export default function ScrollVideoHero() {
         startText.style.pointerEvents = startOp < 0.03 ? 'none' : 'auto';
       }
       if (scrollIndic) scrollIndic.style.opacity = String(clamp(1 - p / 0.06, 0, 1));
+      if (ticker) ticker.style.opacity = String(startOp);
 
       /* Texte final */
       if (endText) endText.style.pointerEvents = p >= 0.80 ? 'auto' : 'none';
@@ -121,6 +126,16 @@ export default function ScrollVideoHero() {
       const l2 = easeOut3(clamp((p - 0.89) / 0.13, 0, 1));
       applyReveal(r1Inner, l1);
       applyReveal(r2Inner, l2);
+
+      /* Stat pills — stagger après l2 */
+      statPills.forEach((pill, i) => {
+        if (!pill) return;
+        const start  = 0.86 + i * 0.02;
+        const pillP  = easeOut3(clamp((p - start) / 0.08, 0, 1));
+        pill.style.opacity   = String(Math.pow(pillP, 0.6));
+        pill.style.transform = `translateY(${(1 - pillP) * 16}px)`;
+        pill.style.filter    = `blur(${(1 - pillP) * 6}px)`;
+      });
 
       /* Barre de progression */
       if (progressBar) {
@@ -140,7 +155,7 @@ export default function ScrollVideoHero() {
 
         <img
           ref={startImageRef}
-          src="/img/TEXT_2g.webp"
+          src="/img/01_01.webp"
           alt=""
           aria-hidden
           className={s.startImage}
@@ -148,8 +163,8 @@ export default function ScrollVideoHero() {
 
           <video
             ref={videoRef}
-            src="/vid/SCENE01_HERO_scrub.mp4"
-          poster="/img/TEXT_2g.webp"
+            src="/vid/SCENE01_HERO_scrub2.mp4"
+          poster="/img/01_01.webp"
             muted playsInline preload="auto"
             className={s.video}
           />
@@ -157,6 +172,32 @@ export default function ScrollVideoHero() {
         <div ref={blurLeftRef} aria-hidden className={`${s.overlay} ${s.blurLeft}`} />
         <div ref={gradientRef} aria-hidden className={`${s.overlay} ${s.gradientLeft}`} />
         <div ref={darkVeilRef} aria-hidden className={`${s.overlay} ${s.darkVeil}`} style={{ opacity: 0 }} />
+
+        {/* ══ TICKER ══ */}
+        {(() => {
+          const pills = [
+            'Réponse en moins de 3 secondes',
+            'Disponible 24h/24, 7j/7',
+            'Multilingue — FR, EN, NL, DE',
+            'Zéro intervention de votre part',
+            'Setup en moins de 24h',
+            'WhatsApp natif, sans application',
+            'Automatisation complète des échanges',
+          ];
+          const doubled = [...pills, ...pills];
+          return (
+            <div ref={tickerRef} className={s.ticker}>
+              <div className={s.tickerTrack}>
+                {doubled.map((label, i) => (
+                  <span key={i} className={s.tickerPill}>
+                    <span className={s.tickerDot} />
+                    {label}
+                  </span>
+                ))}
+              </div>
+            </div>
+          );
+        })()}
 
         {/* ══ TEXTE DE DÉPART ══ */}
         <div ref={startTextRef} className={s.startText} style={{ transform: 'translateY(-50%)' }}>
@@ -173,6 +214,15 @@ export default function ScrollVideoHero() {
             Moins d'appels. Plus de temps.<br />
             Une expérience client plus fluide.
           </p>
+
+          <a href="#" className={s.cta}>
+            Déployer mon agent
+            <span className={s.ctaArrow}>
+              <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
+                <path d="M2 8L8 2M8 2H3.5M8 2V6.5" stroke="#000" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+              </svg>
+            </span>
+          </a>
 
           <div ref={scrollIndicRef} className={s.scrollIndicator}>
             <ScrollArrow />
@@ -194,6 +244,26 @@ export default function ScrollVideoHero() {
               </p>
             </span>
           </span>
+        </div>
+
+        {/* Stat pills */}
+        <div className={s.statPillsRow} aria-hidden>
+          {([
+            { value: '80%',   label: 'des messages traités sans intervention humaine' },
+            { value: '+0.7',  label: 'points de note Booking / Airbnb en moyenne' },
+            { value: '14h',   label: 'économisées par semaine, par établissement' },
+            { value: '< 24h', label: "de l'onboarding à la mise en production" },
+          ] as const).map((stat, i) => (
+            <div
+              key={i}
+              ref={el => { statPillRefs.current[i] = el; }}
+              className={s.statPill}
+              style={{ opacity: 0 }}
+            >
+              <span className={s.statPillValue}>{stat.value}</span>
+              <span className={s.statPillLabel}>{stat.label}</span>
+            </div>
+          ))}
         </div>
 
         <div ref={progressBarRef} aria-hidden className={s.progressBar} style={{ width: '0%' }} />
