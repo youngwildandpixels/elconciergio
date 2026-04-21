@@ -13,28 +13,28 @@ const BENEFITS: BenefitItem[] = [
     title: 'Moins de demandes répétitives',
     description:
       "El Conciergo répond automatiquement aux questions les plus fréquentes : arrivée, départ, accès, WiFi, horaires, consignes ou recommandations. Vos équipes gagnent du temps, vos clients obtiennent l'information immédiatement.",
-    image: '/img/benefit-1.jpg',
+    image: 'img/benefit-1.jpg',
     imagePosition: '62% center',
   },
   {
     title: 'Une expérience plus fluide',
     description:
       "Les bons messages sont envoyés au bon moment, avant l'arrivée, pendant le séjour et jusqu'au départ. Le client est mieux guidé, plus rassuré, et l'expérience paraît plus simple dès le premier contact.",
-    image: '/img/benefit-2.jpg',
+    image: 'img/benefit-2.jpg',
     imagePosition: '55% center',
   },
   {
     title: 'Un service multilingue',
     description:
       "Vos voyageurs peuvent poser leurs questions dans leur langue et recevoir des réponses claires, sans friction. Vous améliorez la qualité de service sans alourdir l'organisation sur place.",
-    image: '/img/benefit-3.jpg',
+    image: 'img/benefit-3.jpg',
     imagePosition: '50% center',
   },
   {
     title: 'Une relation qui continue après le séjour',
     description:
       "Anniversaire, offre spéciale, nouvelle disponibilité, période creuse : El Conciergo permet de recontacter vos anciens clients au bon moment et de transformer WhatsApp en canal de fidélisation.",
-    image: '/img/benefit-4.jpg',
+    image: 'img/benefit-4.jpg',
     imagePosition: '50% center',
   },
 ];

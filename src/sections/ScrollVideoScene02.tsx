@@ -5,7 +5,7 @@ import s from './ScrollVideoScene02.module.css';
    CONFIG
    ═══════════════════════════════════════════════════════════ */
 
-const VIDEO_SRC            = '/vid/scene02_original.mp4';
+const VIDEO_SRC            = 'vid/scene02_original.mp4';
 const SCROLL_VH            = 4.0;
 const AIRPLANE_FREEZE_TIME = 1.2;
 const VIDEO_END_TIME       = 3.6;

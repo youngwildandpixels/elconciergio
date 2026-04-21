@@ -155,7 +155,7 @@ export default function ScrollVideoHero() {
 
         <img
           ref={startImageRef}
-          src="/img/01_01.webp"
+          src="img/01_01.webp"
           alt=""
           aria-hidden
           className={s.startImage}
@@ -163,8 +163,8 @@ export default function ScrollVideoHero() {
 
           <video
             ref={videoRef}
-            src="/vid/SCENE01_HERO_scrub2.mp4"
-          poster="/img/01_01.webp"
+            src="vid/SCENE01_HERO_scrub2.mp4"
+          poster="img/01_01.webp"
             muted playsInline preload="auto"
             className={s.video}
           />

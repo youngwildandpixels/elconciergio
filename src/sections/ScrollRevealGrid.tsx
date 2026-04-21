@@ -206,7 +206,7 @@ export default function ScrollRevealGrid() {
             <div ref={blockBRef} className={`${s.block} ${s.blockB}`}>
               <video
                 ref={videoBRef}
-                src="/vid/scene03b.mp4"
+                src="vid/scene03b.mp4"
                 muted playsInline preload="auto"
                 className={s.video}
               />
@@ -229,7 +229,7 @@ export default function ScrollRevealGrid() {
             <div ref={blockARef} className={`${s.block} ${s.blockA}`} style={{ flexBasis: '100%' }}>
               <video
                 ref={videoARef}
-                src="/vid/scene03a.mp4"
+                src="vid/scene03a.mp4"
                 muted playsInline preload="auto"
                 className={s.video}
               />
@@ -256,7 +256,7 @@ export default function ScrollRevealGrid() {
             <div ref={blockCRef} className={`${s.block} ${s.blockC}`} style={{ flexBasis: '0%', opacity: 0 }}>
               <video
                 ref={videoCRef}
-                src="/vid/scene03c.mp4"
+                src="vid/scene03c.mp4"
                 muted playsInline preload="auto"
                 className={s.video}
               />

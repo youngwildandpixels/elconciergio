@@ -1,42 +1,42 @@
 /* ── GT America ── */
 @font-face {
   font-family: 'GT America';
-  src: url('/font/gt-america-standard-regular.woff') format('woff');
+  src: url('font/gt-america-standard-regular.woff') format('woff');
   font-weight: 400;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
   font-family: 'GT America';
-  src: url('/font/gt-america-standard-bold.woff') format('woff');
+  src: url('font/gt-america-standard-bold.woff') format('woff');
   font-weight: 700;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
   font-family: 'GT America Expanded';
-  src: url('/font/gt-america-expanded-regular.woff') format('woff');
+  src: url('font/gt-america-expanded-regular.woff') format('woff');
   font-weight: 400;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
   font-family: 'GT America Expanded';
-  src: url('/font/gt-america-expanded-medium.woff') format('woff');
+  src: url('font/gt-america-expanded-medium.woff') format('woff');
   font-weight: 500;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
   font-family: 'GT America Expanded';
-  src: url('/font/gt-america-expanded-bold-webfont.woff') format('woff');
+  src: url('font/gt-america-expanded-bold-webfont.woff') format('woff');
   font-weight: 700;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
   font-family: 'GT America Expanded';
-  src: url('/font/gt-america-expanded-black.woff') format('woff');
+  src: url('font/gt-america-expanded-black.woff') format('woff');
   font-weight: 900;
   font-style: normal;
   font-display: swap;
