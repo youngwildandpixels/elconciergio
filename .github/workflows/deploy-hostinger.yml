@@ -36,4 +36,4 @@ jobs:
           target: '/home/${{ secrets.SSH_USERNAME }}/public_html/'
           strip_components: 1
           rm: true
-          timeout: 120s
+          timeout: 300s
