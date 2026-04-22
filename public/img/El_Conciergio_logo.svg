@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Calque_1" data-name="Calque 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1911.49 362.52">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #ff3c15;
+      }
+
+      .cls-2, .cls-3 {
+        fill: #fff;
+      }
+
+      .cls-4 {
+        fill: #25d366;
+      }
+
+      .cls-3 {
+        font-family: GTAmerica-ExpandedBold, 'GT America';
+        font-size: 214.65px;
+        font-weight: 700;
+      }
+
+      .cls-5 {
+        letter-spacing: -.03em;
+      }
+
+      .cls-6 {
+        letter-spacing: 0em;
+      }
+
+      .cls-7 {
+        letter-spacing: 0em;
+      }
+
+      .cls-8 {
+        letter-spacing: 0em;
+      }
+
+      .cls-9 {
+        letter-spacing: 0em;
+      }
+    </style>
+  </defs>
+  <text class="cls-3" transform="translate(358.12 253.49)"><tspan class="cls-8" x="0" y="0">C</tspan><tspan class="cls-7" x="206.45" y="0">o</tspan><tspan class="cls-9" x="381.77" y="0">n</tspan><tspan class="cls-6" x="571.86" y="0">cie</tspan><tspan class="cls-5" x="988.82" y="0">r</tspan><tspan class="cls-6" x="1103.35" y="0">gio</tspan></text>
+  <rect class="cls-4" x="33.06" y="51.69" width="273" height="273" rx="43.32" ry="43.32"/>
+  <circle class="cls-1" cx="306.06" cy="57.97" r="43.41"/>
+  <g>
+    <path class="cls-2" d="M199.93,204.5h-99.39c1.87,14.59,16.11,23.24,39.69,23.24,17.81,0,31.21-5.26,38.67-15.26l18.83,8.65c-11.53,15.09-30.7,23.24-58.17,23.24-38.33,0-62.24-16.79-62.24-44.77,0-30.19,24.76-46.47,61.06-46.47,38.5,0,61.57,17.3,61.57,45.96v5.43ZM176.02,190.25c-.34-14.25-16.79-22.73-37.65-22.73s-36.12,8.99-37.82,22.9h75.47v-.17Z"/>
+    <path class="cls-2" d="M246.23,241.13h-23.57v-122.96h23.57v122.96Z"/>
+  </g>
+</svg>

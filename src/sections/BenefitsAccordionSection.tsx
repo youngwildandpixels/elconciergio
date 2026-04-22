@@ -1,8 +1,10 @@
 import { useState } from 'react';
 import s from './BenefitsAccordionSection.module.css';
+import WhatsAppSimulator from '@/components/WhatsAppSimulator';
 
 type BenefitItem = {
   title: string;
+  subtitle: string;
   description: string;
   image: string;
   imagePosition?: string;
@@ -10,30 +12,34 @@ type BenefitItem = {
 
 const BENEFITS: BenefitItem[] = [
   {
-    title: 'Moins de demandes répétitives',
+    title: 'Mis en place en 7 jours chrono',
+    subtitle: 'Pas besoin de compétences techniques. On s\'occupe de tout.',
     description:
-      "El Conciergo répond automatiquement aux questions les plus fréquentes : arrivée, départ, accès, WiFi, horaires, consignes ou recommandations. Vos équipes gagnent du temps, vos clients obtiennent l'information immédiatement.",
+      'Un appel de 30 minutes suffit pour démarrer. On configure El Conciergio, on le teste avec vous, et il est opérationnel en moins d\'une semaine. Vous recevez un QR code et un lien WhatsApp à partager avec vos clients — c\'est tout ce que vous avez à faire.',
     image: 'img/benefit-1.jpg',
     imagePosition: '62% center',
   },
   {
-    title: 'Une expérience plus fluide',
+    title: 'On part de vos documents existants',
+    subtitle: 'Règlement intérieur, guide d\'accueil, livret de bienvenue — on intègre tout.',
     description:
-      "Les bons messages sont envoyés au bon moment, avant l'arrivée, pendant le séjour et jusqu'au départ. Le client est mieux guidé, plus rassuré, et l'expérience paraît plus simple dès le premier contact.",
+      'Envoyez-nous vos PDF existants : livret d\'accueil, règlement intérieur, liste d\'activités, menus. El Conciergio les lit, les comprend, et répond à vos clients comme si c\'était vous qui aviez tout écrit. Plus vos documents sont complets, plus le bot est précis.',
     image: 'img/benefit-2.jpg',
     imagePosition: '55% center',
   },
   {
-    title: 'Un service multilingue',
+    title: 'El Conciergio parle comme vous',
+    subtitle: 'Votre ton, vos expressions, vos vraies recommandations locales.',
     description:
-      "Vos voyageurs peuvent poser leurs questions dans leur langue et recevoir des réponses claires, sans friction. Vous améliorez la qualité de service sans alourdir l'organisation sur place.",
+      'On ne livre pas un bot générique. Lors du setup, on définit ensemble votre brand voice : est-ce que vous tutoyez vos clients ? Quel niveau de formalité ? Quelles sont vos vraies adresses de resto préférées ? El Conciergio devient le reflet de votre hospitalité — pas une FAQ robotique.',
     image: 'img/benefit-3.jpg',
     imagePosition: '50% center',
   },
   {
-    title: 'Une relation qui continue après le séjour',
+    title: 'Vous ne gérez rien, on s\'occupe de tout',
+    subtitle: 'Mises à jour, pannes, évolutions — c\'est notre job.',
     description:
-      "Anniversaire, offre spéciale, nouvelle disponibilité, période creuse : El Conciergo permet de recontacter vos anciens clients au bon moment et de transformer WhatsApp en canal de fidélisation.",
+      'Vos tarifs changent ? Un nouveau service s\'ajoute ? Vous voulez modifier les horaires de check-in ? Un message sur WhatsApp suffit — on met à jour El Conciergio dans les 24h. Votre abonnement mensuel inclut toutes les modifications et le support prioritaire.',
     image: 'img/benefit-4.jpg',
     imagePosition: '50% center',
   },
@@ -68,6 +74,7 @@ export default function BenefitsAccordionSection() {
                   </button>
 
                   <div id={panelId} className={`${s.panel} ${isActive ? s.panelOpen : ''}`} aria-hidden={!isActive}>
+                    <p className={s.panelSubtitle}>{item.subtitle}</p>
                     <p className={s.panelText}>{item.description}</p>
                   </div>
                 </div>
@@ -77,17 +84,7 @@ export default function BenefitsAccordionSection() {
         </div>
 
         <div className={s.right}>
-          {BENEFITS.map((item, index) => (
-            <img
-              key={item.title}
-              src={item.image}
-              alt="Illustration service concierge"
-              className={`${s.photo} ${index === activeIndex ? s.photoActive : ''}`}
-              style={{ objectPosition: item.imagePosition ?? '50% center' }}
-              loading="lazy"
-            />
-          ))}
-          <div className={s.photoVignette} aria-hidden />
+          <WhatsAppSimulator />
         </div>
       </div>
     </section>

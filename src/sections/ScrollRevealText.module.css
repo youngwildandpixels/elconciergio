@@ -10,8 +10,8 @@
   display: block;
   padding-left: clamp(28px, 10vw, 160px);
   padding-right: clamp(28px, 10vw, 160px);
-  margin-top: 8vh;
-  margin-bottom: clamp(100px, 14vh, 230px);
+  margin-top: 4vh;
+  margin-bottom: clamp(50px, 7vh, 115px);
 }
 
 .statsStrip {
@@ -37,7 +37,7 @@
   display: block;
   font-family: 'GT America', sans-serif;
   font-size: clamp(30px, 4vw, 56px);
-  font-weight: 400;
+  font-weight: 700;
   line-height: 0.95;
   letter-spacing: 0;
   color: #1f1a17;

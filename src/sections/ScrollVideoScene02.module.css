@@ -28,11 +28,44 @@
   position: absolute;
   inset: 0;
   z-index: 2;
+  background: rgba(0, 0, 0, 0.38);
   pointer-events: none;
-  background: rgba(0, 0, 0, 0.42);
 }
 
-/* ── Reveal ── */
+/* ── Text positions ── */
+
+.textTopLeft {
+  position: absolute;
+  z-index: 3;
+  top: clamp(20px, 4vh, 48px);
+  left: clamp(16px, 2vw, 28px);
+  max-width: clamp(260px, 46vw, 520px);
+}
+
+.textBottomLeft {
+  position: absolute;
+  z-index: 3;
+  bottom: 4px;
+  left: auto;
+  right: clamp(16px, 2vw, 28px);
+  max-width: clamp(260px, 46vw, 520px);
+  text-align: right;
+}
+
+.textCenter {
+  position: absolute;
+  z-index: 3;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 0 clamp(16px, 4vw, 48px);
+}
+
+/* ── Typography ── */
+
 .revealOuter {
   display: block;
   overflow: hidden;
@@ -40,81 +73,43 @@
   margin: -6px 0;
 }
 
-/* ── Titre partagé ── */
 .titleMain {
   font-family: 'GT America Expanded', sans-serif;
   font-weight: 700;
-  font-size: clamp(26px, 3.4vw, 50px);
+  font-size: clamp(22px, 2.6vw, 42px);
   line-height: 1.05;
   letter-spacing: -0.025em;
-  color: #ffffff;
+  color: #fff;
   margin: 0;
-  text-wrap: balance;
-}
-
-/* ── Top-left ── */
-.textTopLeft {
-  position: absolute;
-  top: clamp(36px, 7vh, 96px);
-  left: clamp(28px, 8vw, 120px);
-  max-width: 520px;
-  z-index: 3;
-}
-
-/* ── Bottom-right ── */
-.textBottomLeft {
-  position: absolute;
-  bottom: clamp(36px, 7vh, 96px);
-  right: clamp(28px, 8vw, 120px);
-  max-width: 520px;
-  text-align: right;
-  z-index: 3;
-}
-
-/* ── Center ── */
-.textCenter {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  padding: 0 clamp(28px, 10vw, 160px);
-  z-index: 5;
-  pointer-events: none;
 }
 
 .titleCenter {
   font-family: 'GT America Expanded', sans-serif;
   font-weight: 700;
-  font-size: clamp(26px, 3.4vw, 50px);
+  font-size: clamp(24px, 3vw, 52px);
   line-height: 1.05;
   letter-spacing: -0.025em;
-  color: #ffffff;
-  margin: 0;
-  text-align: center;
+  color: #fff;
+  margin: 0 0 16px;
   text-wrap: balance;
-  max-width: 720px;
 }
 
 .subtitleCenter {
   font-family: 'GT America Expanded', sans-serif;
   font-weight: 400;
-  font-size: clamp(15px, 1.3vw, 19px);
-  color: rgba(255, 255, 255, 0.8);
-  margin: 12px 0 0;
-  line-height: 1.25;
-  letter-spacing: 0.2px;
+  font-size: clamp(14px, 1.2vw, 20px);
+  line-height: 1.35;
+  color: rgba(255, 255, 255, 0.78);
+  margin: 0;
   max-width: 560px;
   text-wrap: balance;
-  text-align: center;
 }
 
-/* ── Pastilles ── */
+/* ── Pills ── */
+
 .pillsRow {
   position: absolute;
-  bottom: clamp(28px, 5vh, 60px);
+  bottom: clamp(18px, 3vh, 40px);
   left: 0;
   right: 0;
   display: flex;
@@ -122,26 +117,21 @@
   justify-content: center;
   gap: 10px;
   flex-wrap: wrap;
-  padding: 0 clamp(28px, 8vw, 120px);
-  z-index: 5;
-  pointer-events: none;
+  padding: 0 clamp(14px, 3vw, 28px);
+  z-index: 3;
 }
 
 .pill {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
-  padding: 8px 16px;
+  gap: 7px;
+  padding: 7px 14px;
   border-radius: 999px;
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  background: rgba(255, 255, 255, 0.08);
   font-family: 'GT America', sans-serif;
-  font-weight: 500;
   font-size: clamp(12px, 0.9vw, 14px);
-  letter-spacing: 0.1px;
-  color: rgba(255, 255, 255, 0.92);
+  color: rgba(255, 255, 255, 0.82);
   white-space: nowrap;
 }
 
@@ -153,24 +143,29 @@
   flex-shrink: 0;
 }
 
-/* ── Bulles WhatsApp ── */
+/* ── Messages ── */
+
 .messages {
   position: absolute;
-  inset: 0;
+  z-index: 3;
+  top: 50%;
+  bottom: auto;
+  left: 50%;
+  transform: translate(-50%, -50%);
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  gap: 14px;
-  z-index: 4;
-  padding: 0 clamp(20px, 6vw, 80px);
-  pointer-events: none;
+  gap: 10px;
+  width: min(90%, 420px);
 }
 
 .bubble {
   position: relative;
+  display: inline-flex;
+  align-items: center;
   background: #ffffff;
-  border-radius: 22px 22px 5px 22px;
+  color: #111;
+  border-radius: 18px;
   padding: 14px 20px;
   max-width: clamp(260px, 46vw, 480px);
   min-height: 52px;
@@ -200,4 +195,14 @@
 
 .bubbleGreen .bubbleTail {
   background: #25D366;
+}
+
+@media (max-width: 760px) {
+  .container {
+    margin-bottom: 50px;
+  }
+
+  .messages {
+    width: min(90%, 420px);
+  }
 }

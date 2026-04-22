@@ -106,7 +106,7 @@ export default function ScrollRevealText() {
   const N     = words.length;
 
   return (
-    <div ref={containerRef} className={s.container}>
+    <div ref={containerRef} id="fonctionnalites" className={s.container}>
       <div className={s.sticky}>
         <section ref={statsRef} className={s.statsStrip} aria-label="Indicateurs El Conciergio">
           {STATS.map((stat) => (

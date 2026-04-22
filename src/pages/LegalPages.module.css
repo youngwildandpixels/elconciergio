@@ -1,0 +1,126 @@
+.page {
+  min-height: 100vh;
+  background: var(--site-bg);
+  color: #1f1a17;
+  display: flex;
+  flex-direction: column;
+}
+
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: rgba(242, 238, 231, 0.97);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(31, 26, 23, 0.08);
+}
+
+.logo {
+  display: inline-flex;
+  padding: 20px clamp(20px, 4vw, 64px);
+  font-family: 'GT America Expanded', sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: #1f1a17;
+  text-decoration: none;
+  line-height: 1;
+}
+
+.logoEl {
+  color: var(--green);
+}
+
+.main {
+  flex: 1;
+  padding: clamp(48px, 6vw, 80px) clamp(20px, 4vw, 64px);
+}
+
+.container {
+  max-width: 760px;
+  margin: 0 auto;
+}
+
+.title {
+  font-family: 'GT America Expanded', sans-serif;
+  font-size: clamp(28px, 3.5vw, 42px);
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  line-height: 1.05;
+  margin: 0 0 clamp(32px, 4vw, 48px);
+  color: #1f1a17;
+}
+
+.content {
+  font-family: 'GT America', sans-serif;
+  font-size: clamp(15px, 1.1vw, 17px);
+  line-height: 1.6;
+  color: rgba(31, 26, 23, 0.85);
+}
+
+.content h2 {
+  font-family: 'GT America Expanded', sans-serif;
+  font-size: clamp(18px, 1.6vw, 22px);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  margin: clamp(32px, 3vw, 40px) 0 16px;
+  color: #1f1a17;
+}
+
+.content p {
+  margin: 0 0 16px;
+}
+
+.content ul {
+  margin: 0 0 16px;
+  padding-left: 24px;
+}
+
+.content li {
+  margin-bottom: 8px;
+}
+
+.content a {
+  color: var(--green);
+  text-decoration: none;
+}
+
+.content a:hover {
+  text-decoration: underline;
+}
+
+.footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 24px clamp(20px, 4vw, 64px);
+  border-top: 1px solid rgba(31, 26, 23, 0.08);
+}
+
+.backLink {
+  font-family: 'GT America Expanded', sans-serif;
+  font-size: 14px;
+  color: #1f1a17;
+  text-decoration: none;
+  transition: color 200ms ease;
+}
+
+.backLink:hover {
+  color: var(--green);
+}
+
+.copyright {
+  font-family: 'GT America Expanded', sans-serif;
+  font-size: 13px;
+  color: rgba(31, 26, 23, 0.5);
+  margin: 0;
+}
+
+@media (max-width: 560px) {
+  .footer {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}

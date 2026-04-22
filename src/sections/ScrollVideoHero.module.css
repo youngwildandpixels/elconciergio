@@ -1,3 +1,5 @@
+/* ── ScrollVideoHero ────────────────────────────────────────── */
+
 .container {
   position: relative;
   height: 700vh; /* fallback avant que la durée vidéo soit connue */
@@ -350,4 +352,11 @@
 
 .revealInner {
   display: block;
+}
+
+/* ── ServicesTicker wrap ── */
+.servicesWrap {
+  position: sticky;
+  bottom: 0;
+  z-index: 5;
 }

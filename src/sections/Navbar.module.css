@@ -1,0 +1,252 @@
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 50;
+  transition: transform 400ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.navbarHidden {
+  transform: translateY(-100%);
+}
+
+/* ── Transparent theme (top of page) ── */
+
+.themeTransparent .bg {
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.28) 0%,
+    rgba(0, 0, 0, 0.08) 55%,
+    rgba(0, 0, 0, 0) 100%
+  );
+}
+
+.themeTransparent .link,
+.themeTransparent .mobileLink {
+  color: #fff;
+}
+
+.themeTransparent .bar {
+  background: #fff;
+}
+
+.themeTransparent .logoText {
+  color: #fff;
+}
+
+/* ── Beige theme (scrolled up) ── */
+
+.themeBeige .bg {
+  background: rgba(242, 238, 231, 0.97);
+  box-shadow: 0 2px 20px rgba(0, 0, 0, 0.07);
+}
+
+.themeBeige .link,
+.themeBeige .mobileLink {
+  color: #1f1a17;
+}
+
+.themeBeige .bar {
+  background: #1f1a17;
+}
+
+.themeBeige .logoText {
+  color: #1f1a17;
+}
+
+/* ── Background layer ── */
+.bg {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  transition: background 300ms ease, box-shadow 300ms ease;
+}
+
+.inner {
+  position: relative;
+  z-index: 60;
+  max-width: none;
+  margin: 0 auto;
+  padding: 0 clamp(20px, 4vw, 64px);
+  height: 68px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.logoLink {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  flex-shrink: 0;
+}
+
+.logoText {
+  font-family: 'GT America Expanded', sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  text-decoration: none;
+  line-height: 1;
+}
+
+.logoEl {
+  color: var(--green);
+}
+
+.links {
+  display: flex;
+  align-items: center;
+  gap: clamp(24px, 3vw, 40px);
+}
+
+.link {
+  font-family: 'GT America Expanded', sans-serif;
+  font-size: 13px;
+  font-weight: 400;
+  letter-spacing: 0.02em;
+  text-decoration: none;
+  transition: color 300ms ease, opacity 200ms ease;
+}
+
+.link:hover {
+  opacity: 0.72;
+}
+
+.contactBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 20px;
+  border-radius: 10px;
+  background: var(--green);
+  color: #fff;
+  font-family: 'GT America', sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  text-decoration: none;
+  transition: background 200ms ease, transform 200ms ease;
+  white-space: nowrap;
+}
+
+.contactBtn:hover {
+  background: #1ebe5a;
+  transform: translateY(-1px);
+}
+
+.hamburger {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  width: 40px;
+  height: 40px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+}
+
+.bar {
+  display: block;
+  width: 22px;
+  height: 2px;
+  border-radius: 2px;
+  transition: transform 200ms ease, opacity 200ms ease, background 300ms ease;
+}
+
+.barOpen:first-child {
+  transform: translateY(7px) rotate(45deg);
+}
+
+.barOpen:nth-child(2) {
+  opacity: 0;
+}
+
+.barOpen:last-child {
+  transform: translateY(-7px) rotate(-45deg);
+}
+
+/* Mobile menu */
+.mobileMenu {
+  position: fixed;
+  inset: 0;
+  z-index: 40;
+  overflow: hidden;
+  transition: opacity 300ms ease, visibility 300ms ease;
+  background: var(--site-bg);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.mobileMenuOpen {
+  opacity: 1;
+  visibility: visible;
+}
+
+.mobileMenuClosed {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.mobileLinks {
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 32px;
+}
+
+.mobileLink {
+  font-family: 'GT America Expanded', sans-serif;
+  font-size: clamp(24px, 7vw, 42px);
+  font-weight: 700;
+  color: #1f1a17;
+  text-decoration: none;
+  transition: opacity 200ms ease;
+  letter-spacing: -0.02em;
+  text-align: center;
+  width: 100%;
+}
+
+.mobileLink:hover {
+  opacity: 0.6;
+}
+
+.mobileContactBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 16px 32px;
+  border-radius: 12px;
+  background: var(--green);
+  color: #fff;
+  font-family: 'GT America Expanded', sans-serif;
+  font-size: clamp(16px, 4vw, 22px);
+  font-weight: 500;
+  text-decoration: none;
+  transition: background 200ms ease, transform 200ms ease;
+  margin-top: 16px;
+}
+
+.mobileContactBtn:hover {
+  background: #1ebe5a;
+  transform: translateY(-2px);
+}
+
+@media (max-width: 760px) {
+  .links {
+    display: none;
+  }
+
+  .hamburger {
+    display: flex;
+  }
+}

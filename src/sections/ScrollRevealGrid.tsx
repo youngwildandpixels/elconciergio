@@ -59,6 +59,7 @@ export default function ScrollRevealGrid() {
   const textATopRef  = useRef<HTMLDivElement>(null);  // label wrapper — fades out on shrink
   const textASubRef  = useRef<HTMLDivElement>(null);  // sub wrapper — fades out on shrink
   const textBRef     = useRef<HTMLDivElement>(null);
+  const checkItemRefs = useRef<(HTMLLIElement | null)[]>([]);
   const textCRef     = useRef<HTMLDivElement>(null);
   const veilCRef     = useRef<HTMLDivElement>(null);
 
@@ -199,6 +200,9 @@ export default function ScrollRevealGrid() {
           textASub.style.overflow  = 'hidden';
         }
         reveal(textB, easeOut3(prog(cp, ...T.TEXT_B)));
+        checkItemRefs.current.forEach((el, i) => {
+          if (el) reveal(el, easeOut3(prog(cp, T.TEXT_B[0] + i * 0.04, T.TEXT_B[1] + i * 0.04)));
+        });
         const rC = easeOut3(prog(cp, ...T.TEXT_C));
         reveal(textC, rC);
         if (veilC) veilC.style.opacity = String(clamp(rC * 1.5, 0, 1));
@@ -234,6 +238,23 @@ export default function ScrollRevealGrid() {
                   Nouvelles dispo, offres ciblées — envoyées au bon moment, sur WhatsApp.
                 </p>
               </div>
+              <ul className={s.checklist}>
+                {['Relance période creuse', 'Relance Saint-Valentin', 'Relance anniversaire'].map((label, i) => (
+                  <li
+                    key={label}
+                    ref={(el) => { checkItemRefs.current[i] = el; }}
+                    className={s.checkItem}
+                    style={{ opacity: 0 }}
+                  >
+                    <span className={s.checkIcon}>
+                      <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden>
+                        <path d="M2.5 7.5l3 3 6-6" stroke="white" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"/>
+                      </svg>
+                    </span>
+                    <span className={s.checkLabel}>{label}</span>
+                  </li>
+                ))}
+              </ul>
             </div>
           </div>
 

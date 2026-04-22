@@ -1,0 +1,72 @@
+/* ── ServicesTicker ─────────────────────────────────────────── */
+
+.section {
+  background: var(--site-bg);
+  padding: clamp(16px, 2vw, 28px) 0;
+  margin-bottom: 80px;
+  overflow: hidden;
+}
+
+/* ── Rows ───────────────────────────────────────────────────── */
+
+.row {
+  display: flex;
+  overflow: hidden;
+  margin-bottom: 10px;
+}
+
+.row:last-child {
+  margin-bottom: 0;
+}
+
+/* ── Track ──────────────────────────────────────────────────── */
+
+.track {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: max-content;
+  animation: scrollLeft 32s linear infinite;
+}
+
+.trackReverse {
+  animation: scrollRight 32s linear infinite;
+}
+
+/* ── Pill ───────────────────────────────────────────────────── */
+
+.pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 20px;
+  border-radius: 999px;
+  border: 1px solid rgba(31, 26, 23, 0.12);
+  background: rgba(255, 255, 255, 0.45);
+  font-family: 'GT America Expanded', sans-serif;
+  font-size: clamp(12px, 0.9vw, 14px);
+  letter-spacing: 0.2px;
+  color: #1f1a17;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #25D366;
+  flex-shrink: 0;
+}
+
+/* ── Animations ─────────────────────────────────────────────── */
+
+@keyframes scrollLeft {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+@keyframes scrollRight {
+  from { transform: translateX(-50%); }
+  to   { transform: translateX(0); }
+}

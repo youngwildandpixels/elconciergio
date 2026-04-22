@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react';
 import s from './ScrollVideoHero.module.css';
 
-const PX_PER_SECOND = 450;
+const PX_PER_SECOND = 225;
 const EXIT_SCROLL_VH = 1.35;
 const VIDEO_TRIGGER_OFFSET_VH = 0.02;
 const VIDEO_FADE_VH = 0.06;
