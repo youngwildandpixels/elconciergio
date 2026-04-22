@@ -42,7 +42,6 @@ export default function ScrollVideoHero() {
 
     const prime = () => {
       apply();
-      // iOS requires a play() before currentTime seeking works reliably
       const p = video.play();
       if (p !== undefined) p.then(() => video.pause()).catch(() => {});
     };
@@ -50,6 +49,18 @@ export default function ScrollVideoHero() {
     video.load();
     if (video.readyState >= 1) prime();
     else video.addEventListener('loadedmetadata', prime, { once: true });
+
+    let lastW = window.innerWidth;
+    let debounce: ReturnType<typeof setTimeout>;
+    const onResize = () => {
+      const w = window.innerWidth;
+      if (w === lastW) return; // ignore address-bar height changes
+      lastW = w;
+      clearTimeout(debounce);
+      debounce = setTimeout(apply, 300);
+    };
+    window.addEventListener('resize', onResize);
+    return () => { window.removeEventListener('resize', onResize); clearTimeout(debounce); };
   }, []);
 
   /* ── Scroll → DOM direct, zéro re-render ── */
@@ -82,6 +93,7 @@ export default function ScrollVideoHero() {
       inner.style.filter    = `blur(${blur}px)`;
     };
 
+    let lastSeek = -1;
     const onScroll = () => {
       const scrolled        = -container.getBoundingClientRect().top;
       const exitScrollable  = window.innerHeight * EXIT_SCROLL_VH;
@@ -94,10 +106,12 @@ export default function ScrollVideoHero() {
       const triggerFade   = window.innerHeight * VIDEO_FADE_VH;
       const videoReveal   = clamp((scrolled - triggerOffset) / triggerFade, 0, 1);
 
-      /* Vidéo */
-      if (video.readyState >= 2 && video.duration) {
+      /* Vidéo — throttle seeking */
+      const targetTime = scrolled <= triggerOffset ? 0 : p * video.duration;
+      if (video.readyState >= 2 && video.duration && Math.abs(targetTime - lastSeek) > 0.05) {
         video.pause();
-        video.currentTime = scrolled <= triggerOffset ? 0 : p * video.duration;
+        video.currentTime = targetTime;
+        lastSeek = targetTime;
       }
       video.style.opacity = String(videoReveal);
       video.style.transform = `translateY(-${ep * 10}%)`;

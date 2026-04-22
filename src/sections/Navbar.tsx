@@ -30,26 +30,32 @@ function scrollToHash(href: string) {
 
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
-  const [hidden, setHidden] = useState(false);
-  const [atTop, setAtTop] = useState(true);
+  const headerRef = useRef<HTMLElement>(null);
   const lastScrollY = useRef(0);
 
   useEffect(() => {
+    const header = headerRef.current;
+    if (!header) return;
+
     const onScroll = () => {
       const current = window.scrollY;
-      setAtTop(current < 10);
+      const atTop = current < 10;
+      const hidden = current > lastScrollY.current && current > 80;
 
-      if (current > lastScrollY.current && current > 80) {
-        setHidden(true);
+      header.classList.toggle(s.themeTransparent, atTop);
+      header.classList.toggle(s.themeBeige, !atTop);
+      header.classList.toggle(s.navbarHidden, hidden);
+
+      if (hidden && menuOpen) {
         setMenuOpen(false);
-      } else {
-        setHidden(false);
       }
       lastScrollY.current = current;
     };
+
+    onScroll();
     window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
-  }, []);
+  }, [menuOpen]);
 
   const handleClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
     e.preventDefault();
@@ -57,10 +63,8 @@ export default function Navbar() {
     scrollToHash(href);
   };
 
-  const theme = atTop ? s.themeTransparent : s.themeBeige;
-
   return (
-    <header className={`${s.navbar} ${hidden ? s.navbarHidden : ''} ${theme}`}>
+    <header ref={headerRef} className={s.navbar}>
       <div className={s.bg} />
 
       <div className={s.inner}>

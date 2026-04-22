@@ -99,10 +99,19 @@ export default function ScrollVideoScene02() {
     };
 
     apply();
-    window.addEventListener('resize', apply);
+    let lastW = window.innerWidth;
+    let debounce: ReturnType<typeof setTimeout>;
+    const onResize = () => {
+      const w = window.innerWidth;
+      if (w === lastW) return;
+      lastW = w;
+      clearTimeout(debounce);
+      debounce = setTimeout(apply, 300);
+    };
+    window.addEventListener('resize', onResize);
     video.load();
     video.addEventListener('loadedmetadata', prime, { once: true });
-    return () => window.removeEventListener('resize', apply);
+    return () => { window.removeEventListener('resize', onResize); clearTimeout(debounce); };
   }, []);
 
   /* ── RAF loop ── */
@@ -119,6 +128,14 @@ export default function ScrollVideoScene02() {
     if (!container || !sticky || !video) return;
 
     let rafId: number;
+    let isVisible = true;
+    let lastSeek = -1;
+
+    const io = new IntersectionObserver(
+      ([entry]) => { isVisible = entry.isIntersecting; },
+      { rootMargin: '200px' }
+    );
+    io.observe(container);
 
     const tick = () => {
       const rect       = container.getBoundingClientRect();
@@ -148,8 +165,9 @@ export default function ScrollVideoScene02() {
 
         /* ── Pre-pin ── */
         if (rawEnterP < 1) {
-          if (video.readyState >= 2 && video.duration) {
-            video.currentTime = enterP * AIRPLANE_FREEZE_TIME;
+          if (isVisible && video.readyState >= 2 && video.duration) {
+            const t = enterP * AIRPLANE_FREEZE_TIME;
+            if (Math.abs(t - lastSeek) > 0.05) { video.currentTime = t; lastSeek = t; }
           }
           reveal(titleTopLeft, 0);
           reveal(titleBottomLeft, 0);
@@ -167,15 +185,17 @@ export default function ScrollVideoScene02() {
           return;
         }
 
-        /* ── Video ── */
-        if (video.readyState >= 2 && video.duration) {
+        /* ── Video — throttle seeking ── */
+        if (isVisible && video.readyState >= 2 && video.duration) {
+          let t: number;
           if (containerP < T.FREEZE_1_OUT) {
-            video.currentTime = AIRPLANE_FREEZE_TIME;
+            t = AIRPLANE_FREEZE_TIME;
           } else if (containerP < T.FREEZE_2_START) {
-            video.currentTime = lerp(containerP, T.FREEZE_1_OUT, T.FREEZE_2_START, AIRPLANE_FREEZE_TIME, VIDEO_END_TIME);
+            t = lerp(containerP, T.FREEZE_1_OUT, T.FREEZE_2_START, AIRPLANE_FREEZE_TIME, VIDEO_END_TIME);
           } else {
-            video.currentTime = VIDEO_END_TIME;
+            t = VIDEO_END_TIME;
           }
+          if (Math.abs(t - lastSeek) > 0.05) { video.currentTime = t; lastSeek = t; }
         }
 
         /* ── titleMain — FREEZE 1 uniquement ── */
@@ -228,7 +248,7 @@ export default function ScrollVideoScene02() {
     };
 
     rafId = requestAnimationFrame(tick);
-    return () => cancelAnimationFrame(rafId);
+    return () => { cancelAnimationFrame(rafId); io.disconnect(); };
   }, []);
 
   return (

@@ -69,8 +69,17 @@ export default function ScrollRevealGrid() {
     if (!container) return;
     const apply = () => { container.style.height = `${window.innerHeight * (1 + SCROLL_VH)}px`; };
     apply();
-    window.addEventListener('resize', apply);
-    return () => window.removeEventListener('resize', apply);
+    let lastW = window.innerWidth;
+    let debounce: ReturnType<typeof setTimeout>;
+    const onResize = () => {
+      const w = window.innerWidth;
+      if (w === lastW) return;
+      lastW = w;
+      clearTimeout(debounce);
+      debounce = setTimeout(apply, 300);
+    };
+    window.addEventListener('resize', onResize);
+    return () => { window.removeEventListener('resize', onResize); clearTimeout(debounce); };
   }, []);
 
   /* ── Prime videos for iOS seeking ── */
@@ -108,6 +117,14 @@ export default function ScrollRevealGrid() {
     if (!container || !grid) return;
 
     let rafId: number;
+    let isVisible = true;
+    const lastSeek = { a: -1, b: -1, c: -1 };
+
+    const io = new IntersectionObserver(
+      ([entry]) => { isVisible = entry.isIntersecting; },
+      { rootMargin: '200px' }
+    );
+    io.observe(container);
 
     const tick = () => {
       const rect       = container.getBoundingClientRect();
@@ -126,13 +143,13 @@ export default function ScrollRevealGrid() {
           const vh    = window.innerHeight;
           const GAP_M = 10;
 
-          const gap1   = bBP * GAP_M;          // between A and B
-          const gap2   = bCP * GAP_M;          // between B and C
+          const gap1   = bBP * GAP_M;
+          const gap2   = bCP * GAP_M;
           const usable = vh - gap1 - gap2;
 
-          const aH = vh - bBP * (vh - 0.30 * usable);        // 100vh → 30%
-          const bH = bBP * (0.70 - bCP * 0.20) * usable;      // 0 → 70% → 50%
-          const cH = bCP * 0.20 * usable;                      // 0 → 20%
+          const aH = vh - bBP * (vh - 0.30 * usable);
+          const bH = bBP * (0.70 - bCP * 0.20) * usable;
+          const cH = bCP * 0.20 * usable;
 
           if (blockA) { blockA.style.height = `${aH}px`; blockA.style.flexBasis = ''; }
           if (leftCol) {
@@ -168,15 +185,20 @@ export default function ScrollRevealGrid() {
           if (blockC)   { blockC.style.flexBasis = `${cH}%`; blockC.style.height = ''; blockC.style.opacity = String(clamp(bCP * 4, 0, 1)); }
         }
 
-        /* ── Video scrub — each plays in its own range ── */
-        if (videoA && videoA.readyState >= 2 && videoA.duration) {
-          videoA.currentTime = prog(cp, ...T.VIDEO_A) * videoA.duration;
-        }
-        if (videoB && videoB.readyState >= 2 && videoB.duration) {
-          videoB.currentTime = prog(cp, T.BLOCK_B[0], T.VIDEO_B[1]) * videoB.duration;
-        }
-        if (videoC && videoC.readyState >= 2 && videoC.duration) {
-          videoC.currentTime = prog(cp, T.BLOCK_C[0], 1.0) * videoC.duration;
+        /* ── Video scrub — throttle seeking ── */
+        if (isVisible) {
+          if (videoA && videoA.readyState >= 2 && videoA.duration) {
+            const t = prog(cp, ...T.VIDEO_A) * videoA.duration;
+            if (Math.abs(t - lastSeek.a) > 0.05) { videoA.currentTime = t; lastSeek.a = t; }
+          }
+          if (videoB && videoB.readyState >= 2 && videoB.duration) {
+            const t = prog(cp, T.BLOCK_B[0], T.VIDEO_B[1]) * videoB.duration;
+            if (Math.abs(t - lastSeek.b) > 0.05) { videoB.currentTime = t; lastSeek.b = t; }
+          }
+          if (videoC && videoC.readyState >= 2 && videoC.duration) {
+            const t = prog(cp, T.BLOCK_C[0], 1.0) * videoC.duration;
+            if (Math.abs(t - lastSeek.c) > 0.05) { videoC.currentTime = t; lastSeek.c = t; }
+          }
         }
 
         /* ── Text reveals ── */
@@ -212,7 +234,7 @@ export default function ScrollRevealGrid() {
     };
 
     rafId = requestAnimationFrame(tick);
-    return () => cancelAnimationFrame(rafId);
+    return () => { cancelAnimationFrame(rafId); io.disconnect(); };
   }, []);
 
   return (

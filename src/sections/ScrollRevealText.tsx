@@ -21,13 +21,14 @@ const STATS = [
 
 export default function ScrollRevealText() {
   const containerRef = useRef<HTMLDivElement>(null);
+  const textRef = useRef<HTMLParagraphElement>(null);
   const statsRef = useRef<HTMLElement>(null);
-  const [progress, setProgress] = useState(0);
   const [statsInView, setStatsInView] = useState(false);
   const [statsProgress, setStatsProgress] = useState(0);
 
   useEffect(() => {
     const clamp01 = (value: number) => Math.max(0, Math.min(1, value));
+    let last = -1;
 
     const onScroll = () => {
       const el = containerRef.current;
@@ -47,8 +48,22 @@ export default function ScrollRevealText() {
       }
 
       const eased = Math.pow(clamped, 2.1);
-      setProgress(eased);
+      if (Math.abs(eased - last) < 0.02) return; // throttle: skip tiny changes
+      last = eased;
+
+      const textEl = textRef.current;
+      if (!textEl) return;
+      const spans = textEl.querySelectorAll('span');
+      const N = spans.length;
+      if (!N) return;
+
+      spans.forEach((span, i) => {
+        const pos = i / (N - 1);
+        const opacity = Math.max(0.13, Math.min(1, (eased - pos + 0.12) / 0.12));
+        (span as HTMLElement).style.opacity = String(opacity);
+      });
     };
+
     onScroll();
     window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
@@ -103,7 +118,6 @@ export default function ScrollRevealText() {
   }, [statsInView]);
 
   const words = TEXT.split(' ');
-  const N     = words.length;
 
   return (
     <div ref={containerRef} id="fonctionnalites" className={s.container}>
@@ -117,16 +131,12 @@ export default function ScrollRevealText() {
           ))}
         </section>
 
-        <p className={`${s.text} about-s_lead-text`}>
-          {words.map((word, i) => {
-            const pos     = i / (N - 1);
-            const opacity = Math.max(0.13, Math.min(1, (progress - pos + 0.12) / 0.12));
-            return (
-              <span key={i} style={{ opacity }}>
-                {word}{' '}
-              </span>
-            );
-          })}
+        <p ref={textRef} className={`${s.text} about-s_lead-text`}>
+          {words.map((word, i) => (
+            <span key={i}>
+              {word}{' '}
+            </span>
+          ))}
         </p>
       </div>
     </div>
