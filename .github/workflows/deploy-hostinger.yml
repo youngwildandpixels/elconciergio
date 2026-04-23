@@ -23,7 +23,7 @@ jobs:
         run: npm ci
 
       - name: Build
-        run: npm run build
+        run: VITE_BASE_URL=/ npm run build
 
       - name: Deploy to Hostinger via SCP
         uses: appleboy/scp-action@v0.1.7
