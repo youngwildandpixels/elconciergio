@@ -28,7 +28,6 @@ export default function ScrollVideoHero() {
   const statPillRefs      = useRef<(HTMLDivElement | null)[]>([]);
   const tickerRef         = useRef<HTMLDivElement>(null);
   const isPlayingRef      = useRef(false);
-  const rafIdRef          = useRef(0);
 
   /* ── Hauteur container ── */
   useEffect(() => {
@@ -173,27 +172,10 @@ export default function ScrollVideoHero() {
       }
     };
 
-    const syncScrollToVideo = () => {
-      if (!isPlayingRef.current) return;
-      if (video.ended || video.paused) {
-        isPlayingRef.current = false;
-        return;
-      }
-      const progress = video.currentTime / video.duration;
-      const exitScrollable  = window.innerHeight * EXIT_SCROLL_VH;
-      const videoScrollable = container.offsetHeight - window.innerHeight - exitScrollable;
-      const triggerOffset   = window.innerHeight * VIDEO_TRIGGER_OFFSET_VH;
-      const containerTop    = container.getBoundingClientRect().top + window.scrollY;
-      const targetScroll    = containerTop + triggerOffset + progress * videoScrollable;
-      window.scrollTo({ top: targetScroll, behavior: 'auto' });
-      rafIdRef.current = requestAnimationFrame(syncScrollToVideo);
-    };
-
     const onTouchStart = (e: TouchEvent) => {
       if (isPlayingRef.current) {
         isPlayingRef.current = false;
         video.pause();
-        cancelAnimationFrame(rafIdRef.current);
         return;
       }
       touchStartY = e.touches[0].clientY;
@@ -204,11 +186,28 @@ export default function ScrollVideoHero() {
       const deltaY = touchStartY - e.changedTouches[0].clientY;
       if (deltaY > 50) {
         isPlayingRef.current = true;
-        video.playbackRate = 0.5;
         video.play().catch(() => {});
-        rafIdRef.current = requestAnimationFrame(syncScrollToVideo);
+
+        const exitScrollable  = window.innerHeight * EXIT_SCROLL_VH;
+        const videoScrollable = container.offsetHeight - window.innerHeight - exitScrollable;
+        const triggerOffset   = window.innerHeight * VIDEO_TRIGGER_OFFSET_VH;
+        const containerTop    = container.getBoundingClientRect().top + window.scrollY;
+        const targetScroll    = containerTop + triggerOffset + videoScrollable;
+        const remainingTime   = video.duration - video.currentTime;
+
+        const lenis = (window as unknown as Record<string, unknown>).__lenis as
+          { scrollTo?: (target: number, opts?: { duration?: number; lock?: boolean }) => void } | undefined;
+
+        if (lenis?.scrollTo) {
+          lenis.scrollTo(targetScroll, { duration: remainingTime, lock: false });
+        } else {
+          window.scrollTo({ top: targetScroll, behavior: 'smooth' });
+        }
       }
     };
+
+    const onVideoEnded = () => { isPlayingRef.current = false; };
+    video.addEventListener('ended', onVideoEnded);
 
     window.addEventListener('scroll', onScroll, { passive: true });
     if (isMobile) {
@@ -217,11 +216,11 @@ export default function ScrollVideoHero() {
     }
     return () => {
       window.removeEventListener('scroll', onScroll);
+      video.removeEventListener('ended', onVideoEnded);
       if (isMobile) {
         window.removeEventListener('touchstart', onTouchStart);
         window.removeEventListener('touchend', onTouchEnd);
       }
-      cancelAnimationFrame(rafIdRef.current);
     };
   }, []);
 
