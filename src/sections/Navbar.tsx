@@ -15,7 +15,6 @@ const NAV_LINKS = [
   { label: 'Fonctionnalités', href: '#fonctionnalites' },
   { label: 'Pourquoi WhatsApp', href: '#pourquoi-whatsapp' },
   { label: 'Tarifs', href: '#tarifs' },
-  { label: 'Démo', href: '#demo' },
 ];
 
 function scrollToHash(href: string) {
