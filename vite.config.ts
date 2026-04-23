@@ -5,7 +5,7 @@ import { inspectAttr } from 'kimi-plugin-inspect-react'
 
 // https://vite.dev/config/
 export default defineConfig({
-  // base: '/', // racine du domaine
+  base: '/elconciergio/',
   plugins: [inspectAttr(), react()],
   resolve: {
     alias: {
