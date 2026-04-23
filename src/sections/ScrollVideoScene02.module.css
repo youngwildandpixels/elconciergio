@@ -258,9 +258,9 @@
 
   .textBottomLeft {
     bottom: 56px;
-    left: 50%;
-    right: auto;
-    transform: translateX(-50%);
+    left: auto;
+    right: 36px;
+    transform: none;
   }
 
   .textTopLeft {
