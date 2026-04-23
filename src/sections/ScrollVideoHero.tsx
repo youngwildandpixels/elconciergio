@@ -423,7 +423,7 @@ export default function ScrollVideoHero() {
       <div className={s.mobileHeroStack} data-nav-transparent="true">
         <section className={s.mobileHero}>
           <img
-            src="img/banner-mobile.webp"
+            src="/img/banner-mobile.webp"
             alt=""
             aria-hidden
             className={s.mobileHeroImage}
@@ -501,7 +501,7 @@ export default function ScrollVideoHero() {
 
         <img
           ref={startImageRef}
-          src="img/01_01.webp"
+          src="/img/01_01.webp"
           alt=""
           aria-hidden
           className={s.startImage}
@@ -509,8 +509,8 @@ export default function ScrollVideoHero() {
 
         <video
           ref={videoRef}
-          src="vid/SCENE01_HERO_scrub2.mp4"
-          poster="img/01_01.webp"
+          src="/vid/SCENE01_HERO_scrub2.mp4"
+          poster="/img/01_01.webp"
           muted
           playsInline
           preload="auto"

@@ -5,7 +5,7 @@ import s from './ScrollVideoScene02.module.css';
    CONFIG
    ═══════════════════════════════════════════════════════════ */
 
-const VIDEO_SRC            = 'vid/scene02_original.mp4';
+const VIDEO_SRC            = '/vid/scene02_original.mp4';
 const SCROLL_VH            = 4.0;
 const AIRPLANE_FREEZE_TIME = 1.2;
 const VIDEO_END_TIME       = 3.6;
@@ -508,7 +508,7 @@ export default function ScrollVideoScene02() {
       <div className={s.mobileStack} data-nav-transparent="true">
         <section
           className={s.mobileSceneCard}
-          style={{ backgroundImage: 'url("img/scene02_mobile.jpg")' }}
+          style={{ backgroundImage: 'url("/img/scene02_mobile.jpg")' }}
         >
           <div className={s.darkVeil} aria-hidden />
           <div className={s.textTopLeft}>
@@ -537,7 +537,7 @@ export default function ScrollVideoScene02() {
 
         <section
           className={s.mobileSceneCard}
-          style={{ backgroundImage: 'url("img/scene02_mobile.webp")' }}
+          style={{ backgroundImage: 'url("/img/scene02_mobile.webp")' }}
         >
           <div className={s.darkVeil} aria-hidden />
           <div className={s.textCenter}>

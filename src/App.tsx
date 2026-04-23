@@ -5,6 +5,13 @@ import PolitiqueConfidentialite from '@/pages/PolitiqueConfidentialite';
 import CGV from '@/pages/CGV';
 
 function getRouterBasename() {
+  if (typeof window !== 'undefined') {
+    const pathname = window.location.pathname;
+    if (pathname === '/elconciergio' || pathname.startsWith('/elconciergio/')) {
+      return '/elconciergio';
+    }
+  }
+
   const baseUrl = import.meta.env.BASE_URL ?? '/';
   const normalized = baseUrl.endsWith('/') ? baseUrl.slice(0, -1) : baseUrl;
   return normalized && normalized !== '/' ? normalized : undefined;

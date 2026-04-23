@@ -491,7 +491,7 @@ export default function ScrollRevealGrid() {
     return (
       <section className={s.mobileStack} data-nav-transparent="true">
         <article className={s.mobileCard}>
-          <img src="img/close up phone (1).webp" alt="" aria-hidden className={s.mobileCardImage} />
+          <img src="/img/close up phone (1).webp" alt="" aria-hidden className={s.mobileCardImage} />
           <div className={s.mobileCardVeil} />
           <div className={s.mobileCardText}>
             <span className={s.label}>Fidélisation client</span>
@@ -507,7 +507,7 @@ export default function ScrollRevealGrid() {
         </article>
 
         <article className={s.mobileCard}>
-          <img src="img/blocB_mobile.webp" alt="" aria-hidden className={s.mobileCardImage} />
+          <img src="/img/blocB_mobile.webp" alt="" aria-hidden className={s.mobileCardImage} />
           <div className={s.mobileCardVeil} />
           <ul className={`${s.mobileCardPills} ${s.mobileCardPillsCentered}`} aria-hidden>
             {['Relance période creuse', 'Relance Saint-Valentin', 'Relance anniversaire'].map((label, i) => (
@@ -532,7 +532,7 @@ export default function ScrollRevealGrid() {
         </article>
 
         <article className={s.mobileCard}>
-          <img src="img/bloc3_mobile copie.webp" alt="" aria-hidden className={s.mobileCardImage} />
+          <img src="/img/bloc3_mobile copie.webp" alt="" aria-hidden className={s.mobileCardImage} />
           <div className={s.mobileCardVeil} />
           <div className={`${s.mobileCardText} ${s.mobileCardCenter} ${s.mobileCardLast}`}>
             <span className={s.statValue}>+31%</span>
@@ -555,7 +555,7 @@ export default function ScrollRevealGrid() {
             <div ref={blockBRef} className={`${s.block} ${s.blockB}`}>
               <video
                 ref={videoBRef}
-                src="vid/scene03b.mp4"
+                src="/vid/scene03b.mp4"
                 muted playsInline preload="auto"
                 className={s.video}
               />
@@ -595,7 +595,7 @@ export default function ScrollRevealGrid() {
             <div ref={blockARef} className={`${s.block} ${s.blockA}`} style={{ flexBasis: '100%' }}>
               <video
                 ref={videoARef}
-                src="vid/scene03a.mp4"
+                src="/vid/scene03a.mp4"
                 muted playsInline preload="auto"
                 className={s.video}
               />
@@ -622,7 +622,7 @@ export default function ScrollRevealGrid() {
             <div ref={blockCRef} className={`${s.block} ${s.blockC}`} style={{ flexBasis: '0%', opacity: 0 }}>
               <video
                 ref={videoCRef}
-                src="vid/scene03c.mp4"
+                src="/vid/scene03c.mp4"
                 muted playsInline preload="auto"
                 className={s.video}
               />
