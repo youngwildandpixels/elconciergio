@@ -27,6 +27,8 @@ export default function ScrollVideoHero() {
   const reveal2InnerRef   = useRef<HTMLSpanElement>(null);
   const statPillRefs      = useRef<(HTMLDivElement | null)[]>([]);
   const tickerRef         = useRef<HTMLDivElement>(null);
+  const isPlayingRef      = useRef(false);
+  const rafIdRef          = useRef(0);
 
   /* ── Hauteur container ── */
   useEffect(() => {
@@ -93,7 +95,10 @@ export default function ScrollVideoHero() {
       inner.style.filter    = `blur(${blur}px)`;
     };
 
+    const isMobile = window.innerWidth <= 760;
     let lastSeek = -1;
+    let touchStartY = 0;
+
     const onScroll = () => {
       const scrolled        = -container.getBoundingClientRect().top;
       const exitScrollable  = window.innerHeight * EXIT_SCROLL_VH;
@@ -106,12 +111,14 @@ export default function ScrollVideoHero() {
       const triggerFade   = window.innerHeight * VIDEO_FADE_VH;
       const videoReveal   = clamp((scrolled - triggerOffset) / triggerFade, 0, 1);
 
-      /* Vidéo — throttle seeking */
-      const targetTime = scrolled <= triggerOffset ? 0 : p * video.duration;
-      if (video.readyState >= 2 && video.duration && Math.abs(targetTime - lastSeek) > 0.05) {
-        video.pause();
-        video.currentTime = targetTime;
-        lastSeek = targetTime;
+      /* Vidéo — throttle seeking (desktop) */
+      if (!isPlayingRef.current) {
+        const targetTime = scrolled <= triggerOffset ? 0 : p * video.duration;
+        if (video.readyState >= 2 && video.duration && Math.abs(targetTime - lastSeek) > 0.05) {
+          video.pause();
+          video.currentTime = targetTime;
+          lastSeek = targetTime;
+        }
       }
       video.style.opacity = String(videoReveal);
       video.style.transform = `translateY(-${ep * 10}%)`;
@@ -166,8 +173,55 @@ export default function ScrollVideoHero() {
       }
     };
 
+    const syncScrollToVideo = () => {
+      if (!isPlayingRef.current) return;
+      if (video.ended || video.paused) {
+        isPlayingRef.current = false;
+        return;
+      }
+      const progress = video.currentTime / video.duration;
+      const exitScrollable  = window.innerHeight * EXIT_SCROLL_VH;
+      const videoScrollable = container.offsetHeight - window.innerHeight - exitScrollable;
+      const triggerOffset   = window.innerHeight * VIDEO_TRIGGER_OFFSET_VH;
+      const containerTop    = container.getBoundingClientRect().top + window.scrollY;
+      const targetScroll    = containerTop + triggerOffset + progress * videoScrollable;
+      window.scrollTo({ top: targetScroll, behavior: 'auto' });
+      rafIdRef.current = requestAnimationFrame(syncScrollToVideo);
+    };
+
+    const onTouchStart = (e: TouchEvent) => {
+      if (isPlayingRef.current) {
+        isPlayingRef.current = false;
+        video.pause();
+        cancelAnimationFrame(rafIdRef.current);
+        return;
+      }
+      touchStartY = e.touches[0].clientY;
+    };
+
+    const onTouchEnd = (e: TouchEvent) => {
+      if (!isMobile || isPlayingRef.current) return;
+      const deltaY = touchStartY - e.changedTouches[0].clientY;
+      if (deltaY > 50) {
+        isPlayingRef.current = true;
+        video.play().catch(() => {});
+        rafIdRef.current = requestAnimationFrame(syncScrollToVideo);
+      }
+    };
+
     window.addEventListener('scroll', onScroll, { passive: true });
-    return () => window.removeEventListener('scroll', onScroll);
+    if (isMobile) {
+      window.addEventListener('touchstart', onTouchStart, { passive: true });
+      window.addEventListener('touchend', onTouchEnd, { passive: true });
+    }
+    return () => {
+      window.removeEventListener('scroll', onScroll);
+      if (isMobile) {
+        window.removeEventListener('touchstart', onTouchStart);
+        window.removeEventListener('touchend', onTouchEnd);
+      }
+      cancelAnimationFrame(rafIdRef.current);
+    };
   }, []);
 
   return (
