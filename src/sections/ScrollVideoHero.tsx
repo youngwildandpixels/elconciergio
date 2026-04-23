@@ -204,6 +204,7 @@ export default function ScrollVideoHero() {
       const deltaY = touchStartY - e.changedTouches[0].clientY;
       if (deltaY > 50) {
         isPlayingRef.current = true;
+        video.playbackRate = 0.5;
         video.play().catch(() => {});
         rafIdRef.current = requestAnimationFrame(syncScrollToVideo);
       }
