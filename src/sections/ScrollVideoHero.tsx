@@ -188,11 +188,8 @@ export default function ScrollVideoHero() {
         isPlayingRef.current = true;
         video.play().catch(() => {});
 
-        const exitScrollable  = window.innerHeight * EXIT_SCROLL_VH;
-        const videoScrollable = container.offsetHeight - window.innerHeight - exitScrollable;
-        const triggerOffset   = window.innerHeight * VIDEO_TRIGGER_OFFSET_VH;
         const containerTop    = container.getBoundingClientRect().top + window.scrollY;
-        const targetScroll    = containerTop + triggerOffset + videoScrollable;
+        const targetScroll    = containerTop + container.offsetHeight - window.innerHeight;
         const remainingTime   = video.duration - video.currentTime;
 
         const lenis = (window as unknown as Record<string, unknown>).__lenis as
