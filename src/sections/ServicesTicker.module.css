@@ -70,3 +70,30 @@
   from { transform: translateX(-50%); }
   to   { transform: translateX(0); }
 }
+
+/* ── Mobile ─────────────────────────────────────────────────── */
+
+@media (max-width: 760px) {
+  .section {
+    padding: 16px;
+    margin-bottom: 40px;
+  }
+
+  .row {
+    overflow: visible;
+    margin-bottom: 8px;
+  }
+
+  .track,
+  .trackReverse {
+    animation: none;
+    width: auto;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .pill {
+    font-size: 11px;
+    padding: 8px 14px;
+  }
+}
