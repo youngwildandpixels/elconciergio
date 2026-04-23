@@ -75,25 +75,32 @@
 
 @media (max-width: 760px) {
   .section {
-    padding: 16px;
+    padding: 14px 0;
     margin-bottom: 40px;
   }
 
   .row {
-    overflow: visible;
     margin-bottom: 8px;
   }
 
-  .track,
+  .track {
+    gap: 8px;
+    animation: scrollLeft 24s linear infinite;
+  }
+
   .trackReverse {
-    animation: none;
-    width: auto;
-    flex-wrap: wrap;
-    justify-content: center;
+    gap: 8px;
+    animation: scrollRight 24s linear infinite;
   }
 
   .pill {
     font-size: 11px;
-    padding: 8px 14px;
+    padding: 7px 12px;
+    gap: 6px;
+  }
+
+  .dot {
+    width: 4px;
+    height: 4px;
   }
 }
