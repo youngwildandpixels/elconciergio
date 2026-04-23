@@ -45,9 +45,9 @@
 .textBottomLeft {
   position: absolute;
   z-index: 3;
-  bottom: 4px;
+  bottom: clamp(16px, 3vh, 32px);
   left: auto;
-  right: clamp(16px, 2vw, 28px);
+  right: clamp(24px, 3vw, 40px);
   max-width: clamp(260px, 46vw, 520px);
   text-align: right;
 }
@@ -204,5 +204,19 @@
 
   .messages {
     width: min(90%, 420px);
+  }
+
+  .textBottomLeft {
+    bottom: 56px;
+    right: 36px;
+  }
+
+  .textTopLeft {
+    top: 56px;
+    left: 36px;
+  }
+
+  .pillsRow {
+    transform: translateY(-30px);
   }
 }

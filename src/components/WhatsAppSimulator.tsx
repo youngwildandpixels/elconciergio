@@ -76,6 +76,10 @@ export default function WhatsAppSimulator() {
     const el = wrapperRef.current;
     if (!el) return;
     const onScroll = () => {
+      if (window.innerWidth <= 760) {
+        el.style.transform = '';
+        return;
+      }
       const rect = el.getBoundingClientRect();
       el.style.transform = `translateY(${-rect.top * 0.15}px)`;
     };
