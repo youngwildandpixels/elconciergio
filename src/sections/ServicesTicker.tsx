@@ -35,7 +35,7 @@ export default function ServicesTicker() {
 
       {/* Ligne 2 : gauche → droite */}
       <div className={s.row}>
-        <div className={`${s.track} ${s.trackReverse}`}>
+        <div className={s.trackReverse}>
           {doubled.map((label, i) => (
             <span key={`l2-${i}`} className={s.pill}>
               <span className={s.dot} />
