@@ -190,6 +190,18 @@
   visibility: visible;
 }
 
+.mobileMenuOpen .mobileLink {
+  color: #1f1a17;
+}
+
+.menuOpen .logoText {
+  color: #1f1a17;
+}
+
+.menuOpen .bar {
+  background: #1f1a17;
+}
+
 .mobileMenuClosed {
   opacity: 0;
   visibility: hidden;

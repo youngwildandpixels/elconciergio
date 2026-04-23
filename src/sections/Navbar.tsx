@@ -1,5 +1,10 @@
 import { useEffect, useRef, useState } from 'react';
 import s from './Navbar.module.css';
+
+const MOBILE_BREAKPOINT = 760;
+const NAV_HIDE_DELTA_PX = 6;
+const TRANSPARENT_SECTION_SELECTOR = '[data-nav-transparent="true"]';
+
 const WA_ICON = (
   <svg width="16" height="16" viewBox="0 0 18 18" fill="none" aria-hidden>
     <path d="M9 1C4.58 1 1 4.58 1 9c0 1.42.37 2.75 1.01 3.91L1 17l4.23-1.1A7.93 7.93 0 009 17c4.42 0 8-3.58 8-8s-3.58-8-8-8z" fill="white"/>
@@ -40,10 +45,31 @@ export default function Navbar() {
     const onScroll = () => {
       const current = window.scrollY;
       const atTop = current < 10;
-      const hidden = current > lastScrollY.current && current > 80;
+      const delta = current - lastScrollY.current;
+      const probeY = (header.offsetHeight || 68) + 8;
+      const inTransparentSection = Array.from(
+        document.querySelectorAll<HTMLElement>(TRANSPARENT_SECTION_SELECTOR)
+      ).some((section) => {
+        const rect = section.getBoundingClientRect();
+        return rect.top <= probeY && rect.bottom >= probeY;
+      });
+      const isTransparent = atTop || inTransparentSection;
 
-      header.classList.toggle(s.themeTransparent, atTop);
-      header.classList.toggle(s.themeBeige, !atTop);
+      header.classList.toggle(s.themeTransparent, isTransparent);
+      header.classList.toggle(s.themeBeige, !isTransparent);
+
+      if (window.innerWidth <= MOBILE_BREAKPOINT) {
+        header.classList.remove(s.navbarHidden);
+        lastScrollY.current = current;
+        return;
+      }
+
+      const wasHidden = header.classList.contains(s.navbarHidden);
+      let hidden = wasHidden;
+      if (current <= 80) hidden = false;
+      else if (delta > NAV_HIDE_DELTA_PX) hidden = true;
+      else if (delta < -NAV_HIDE_DELTA_PX) hidden = false;
+
       header.classList.toggle(s.navbarHidden, hidden);
 
       if (hidden && menuOpen) {
@@ -64,7 +90,7 @@ export default function Navbar() {
   };
 
   return (
-    <header ref={headerRef} className={s.navbar}>
+    <header ref={headerRef} className={`${s.navbar} ${menuOpen ? s.menuOpen : ''}`}>
       <div className={s.bg} />
 
       <div className={s.inner}>

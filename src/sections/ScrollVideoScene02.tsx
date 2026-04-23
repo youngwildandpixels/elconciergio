@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import s from './ScrollVideoScene02.module.css';
 
 /* ═══════════════════════════════════════════════════════════
@@ -14,6 +14,10 @@ const CARD_INSET           = 32;
 const CARD_RADIUS          = 32;
 const PARALLAX_RANGE       = 6;
 const VIDEO_SCALE          = 1.12;
+const MOBILE_BREAKPOINT    = 760;
+const MOBILE_TRIGGER_PX    = 10;
+const MOBILE_EDGE_EPSILON  = 0.02;
+const MOBILE_FREEZE_EPSILON = 0.002;
 
 const MSG_TYPE_WINDOW = 0.05;
 
@@ -64,11 +68,27 @@ const reveal = (el: HTMLElement | null, p: number) => {
   el.style.filter    = `blur(${(1 - q) * 8}px)`;
 };
 
+type LenisLike = {
+  scrollTo: (
+    target: number,
+    opts?: {
+      duration?: number;
+      immediate?: boolean;
+      lock?: boolean;
+      force?: boolean;
+      onComplete?: () => void;
+    }
+  ) => void;
+};
+
+type WindowWithLenis = Window & { __lenis?: LenisLike };
+
 /* ═══════════════════════════════════════════════════════════
    COMPONENT
    ═══════════════════════════════════════════════════════════ */
 
 export default function ScrollVideoScene02() {
+  const [isMobileRender, setIsMobileRender] = useState(() => window.innerWidth <= MOBILE_BREAKPOINT);
   const containerRef     = useRef<HTMLDivElement>(null);
   const stickyRef        = useRef<HTMLDivElement>(null);
   const videoRef         = useRef<HTMLVideoElement>(null);
@@ -80,11 +100,22 @@ export default function ScrollVideoScene02() {
   const veilRef          = useRef<HTMLDivElement>(null);
   const msgRefs          = useRef<(HTMLDivElement | null)[]>([]);
 
+  useEffect(() => {
+    const onResize = () => setIsMobileRender(window.innerWidth <= MOBILE_BREAKPOINT);
+    window.addEventListener('resize', onResize);
+    return () => window.removeEventListener('resize', onResize);
+  }, []);
+
   /* ── Container height ── */
   useEffect(() => {
     const container = containerRef.current;
     const video     = videoRef.current;
-    if (!container || !video) return;
+    if (!container) return;
+    if (isMobileRender) {
+      container.style.height = `${window.innerHeight * 1.02}px`;
+      return;
+    }
+    if (!video) return;
 
     const apply = () => {
       container.style.height = `${window.innerHeight * (1 + SCROLL_VH)}px`;
@@ -112,7 +143,7 @@ export default function ScrollVideoScene02() {
     video.load();
     video.addEventListener('loadedmetadata', prime, { once: true });
     return () => { window.removeEventListener('resize', onResize); clearTimeout(debounce); };
-  }, []);
+  }, [isMobileRender]);
 
   /* ── RAF loop ── */
   useEffect(() => {
@@ -125,11 +156,156 @@ export default function ScrollVideoScene02() {
     const subtitleCenter = subtitleCenterRef.current;
     const pills          = pillsRef.current;
     const veil           = veilRef.current;
+    if (isMobileRender) return;
     if (!container || !sticky || !video) return;
 
     let rafId: number;
     let isVisible = true;
     let lastSeek = -1;
+    const isMobile = window.innerWidth <= MOBILE_BREAKPOINT;
+    let touchStartY = 0;
+    let touchStartX = 0;
+    let hasTouchStart = false;
+    let isLockedScroll = false;
+    let lockRunId = 0;
+    let fallbackRafId = 0;
+    let lockHold: 'none' | 'start' | 'freeze' | 'end' = 'none';
+    const mobileFreezeTargetP = Math.max(T.FREEZE_1_IN, T.FREEZE_1_OUT - MOBILE_FREEZE_EPSILON);
+
+    const getLenis = () => (window as WindowWithLenis).__lenis;
+
+    const getStickyProgress = () => {
+      const rect = container.getBoundingClientRect();
+      const scrollable = container.offsetHeight - window.innerHeight;
+      if (scrollable <= 0) return { p: 0, scrollable, rectTop: rect.top };
+      return {
+        p: clamp(-rect.top / scrollable, 0, 1),
+        scrollable,
+        rectTop: rect.top,
+      };
+    };
+
+    const isInLockZone = () => {
+      const rect = container.getBoundingClientRect();
+      const stickyTop = sticky.getBoundingClientRect().top;
+      return (
+        rect.top < window.innerHeight &&
+        rect.bottom > 0 &&
+        stickyTop <= window.innerHeight * ENTER_START_VH + 2
+      );
+    };
+
+    const getVideoTimeForProgress = (progress: number) => {
+      if (progress < T.FREEZE_1_OUT) return AIRPLANE_FREEZE_TIME;
+      if (progress < T.FREEZE_2_START) {
+        return lerp(progress, T.FREEZE_1_OUT, T.FREEZE_2_START, AIRPLANE_FREEZE_TIME, VIDEO_END_TIME);
+      }
+      return VIDEO_END_TIME;
+    };
+
+    const getCurrentVideoTime = (containerP: number) => {
+      if (video.readyState >= 2 && Number.isFinite(video.currentTime)) return video.currentTime;
+      return getVideoTimeForProgress(containerP);
+    };
+
+    const getLockPlan = (direction: 1 | -1, containerP: number) => {
+      if (direction > 0) {
+        if (containerP < mobileFreezeTargetP - MOBILE_EDGE_EPSILON) {
+          return { targetP: mobileFreezeTargetP, holdAfter: 'freeze' as const };
+        }
+        if (containerP < 1 - MOBILE_EDGE_EPSILON) {
+          return { targetP: 1, holdAfter: 'end' as const };
+        }
+        return null;
+      }
+
+      if (containerP > mobileFreezeTargetP + MOBILE_EDGE_EPSILON) {
+        return { targetP: mobileFreezeTargetP, holdAfter: 'freeze' as const };
+      }
+      if (containerP > MOBILE_EDGE_EPSILON) {
+        return { targetP: 0, holdAfter: 'start' as const };
+      }
+      return null;
+    };
+
+    const clearFallbackAnimation = () => {
+      if (fallbackRafId) {
+        cancelAnimationFrame(fallbackRafId);
+        fallbackRafId = 0;
+      }
+    };
+
+    const stopLockedScroll = () => {
+      if (!isLockedScroll) return;
+      const lenis = getLenis();
+      if (lenis?.scrollTo) {
+        lenis.scrollTo(window.scrollY, { immediate: true, force: true });
+      }
+      lockRunId += 1;
+      isLockedScroll = false;
+      lockHold = 'none';
+      clearFallbackAnimation();
+      sticky.style.touchAction = 'pan-y';
+    };
+
+    const startLockedScroll = (direction: 1 | -1) => {
+      if (isLockedScroll) return;
+      const { p: containerP, scrollable, rectTop } = getStickyProgress();
+      if (scrollable <= 0) return;
+      const plan = getLockPlan(direction, containerP);
+      if (!plan) return;
+      const { targetP, holdAfter } = plan;
+      if (Math.abs(targetP - containerP) < 0.001) return;
+
+      const containerTop = rectTop + window.scrollY;
+      const targetScroll = containerTop + targetP * scrollable;
+      const currentTime = getCurrentVideoTime(containerP);
+      const targetTime = getVideoTimeForProgress(targetP);
+      const remainingTime = Math.max(0, Math.abs(targetTime - currentTime));
+      const duration = clamp(remainingTime, 0.25, Math.max(AIRPLANE_FREEZE_TIME, VIDEO_END_TIME));
+      const currentRun = lockRunId + 1;
+      lockRunId = currentRun;
+
+      isLockedScroll = true;
+      lockHold = 'none';
+      sticky.style.touchAction = 'none';
+
+      const lenis = getLenis();
+      if (lenis?.scrollTo) {
+        lenis.scrollTo(targetScroll, {
+          duration,
+          lock: true,
+          force: true,
+          onComplete: () => {
+            if (currentRun !== lockRunId) return;
+            isLockedScroll = false;
+            lockHold = holdAfter;
+            sticky.style.touchAction = 'pan-y';
+          },
+        });
+        return;
+      }
+
+      const startY = window.scrollY;
+      const delta = targetScroll - startY;
+      const startTime = performance.now();
+      const durationMs = duration * 1000;
+
+      const step = (now: number) => {
+        if (!isLockedScroll || currentRun !== lockRunId) return;
+        const p = clamp((now - startTime) / durationMs, 0, 1);
+        window.scrollTo(0, startY + delta * p);
+        if (p >= 1) {
+          isLockedScroll = false;
+          lockHold = holdAfter;
+          sticky.style.touchAction = 'pan-y';
+          fallbackRafId = 0;
+          return;
+        }
+        fallbackRafId = requestAnimationFrame(step);
+      };
+      fallbackRafId = requestAnimationFrame(step);
+    };
 
     const io = new IntersectionObserver(
       ([entry]) => { isVisible = entry.isIntersecting; },
@@ -137,12 +313,77 @@ export default function ScrollVideoScene02() {
     );
     io.observe(container);
 
+    const onTouchStart = (e: TouchEvent) => {
+      if (!isInLockZone()) {
+        hasTouchStart = false;
+        return;
+      }
+      if (isLockedScroll) {
+        e.preventDefault();
+        stopLockedScroll();
+        hasTouchStart = false;
+        return;
+      }
+      const touch = e.touches[0];
+      if (!touch) return;
+      touchStartY = touch.clientY;
+      touchStartX = touch.clientX;
+      hasTouchStart = true;
+    };
+
+    const onTouchMove = (e: TouchEvent) => {
+      if (isLockedScroll) {
+        e.preventDefault();
+        return;
+      }
+      if (!hasTouchStart || !isInLockZone()) return;
+      const touch = e.touches[0];
+      if (!touch) return;
+
+      const deltaY = touchStartY - touch.clientY;
+      const deltaX = touchStartX - touch.clientX;
+      if (Math.abs(deltaY) < MOBILE_TRIGGER_PX) return;
+      if (Math.abs(deltaY) < Math.abs(deltaX)) return;
+
+      const direction: 1 | -1 = deltaY > 0 ? 1 : -1;
+      const { p: containerP } = getStickyProgress();
+      if (!getLockPlan(direction, containerP)) {
+        hasTouchStart = false;
+        return;
+      }
+
+      e.preventDefault();
+      hasTouchStart = false;
+      startLockedScroll(direction);
+    };
+
+    const onTouchEnd = () => {
+      hasTouchStart = false;
+    };
+
+    const onWindowTouchMove = (e: TouchEvent) => {
+      if (isLockedScroll) e.preventDefault();
+    };
+
+    if (isMobile) {
+      sticky.style.touchAction = 'pan-y';
+      sticky.addEventListener('touchstart', onTouchStart, { passive: false });
+      sticky.addEventListener('touchmove', onTouchMove, { passive: false });
+      sticky.addEventListener('touchend', onTouchEnd, { passive: true });
+      window.addEventListener('touchmove', onWindowTouchMove, { passive: false });
+    }
+
     const tick = () => {
       const rect       = container.getBoundingClientRect();
       const scrollable = container.offsetHeight - window.innerHeight;
 
       if (scrollable > 0) {
-        const containerP = clamp(-rect.top / scrollable, 0, 1);
+        let containerP = clamp(-rect.top / scrollable, 0, 1);
+        if (isMobile && !isLockedScroll) {
+          if (lockHold === 'end') containerP = 1;
+          if (lockHold === 'start') containerP = 0;
+          if (lockHold === 'freeze') containerP = mobileFreezeTargetP;
+        }
         const stickyTop  = sticky.getBoundingClientRect().top;
         const vh         = window.innerHeight;
 
@@ -248,11 +489,86 @@ export default function ScrollVideoScene02() {
     };
 
     rafId = requestAnimationFrame(tick);
-    return () => { cancelAnimationFrame(rafId); io.disconnect(); };
-  }, []);
+    return () => {
+      cancelAnimationFrame(rafId);
+      io.disconnect();
+      stopLockedScroll();
+      sticky.style.touchAction = '';
+      if (isMobile) {
+        sticky.removeEventListener('touchstart', onTouchStart);
+        sticky.removeEventListener('touchmove', onTouchMove);
+        sticky.removeEventListener('touchend', onTouchEnd);
+        window.removeEventListener('touchmove', onWindowTouchMove);
+      }
+    };
+  }, [isMobileRender]);
+
+  if (isMobileRender) {
+    return (
+      <div className={s.mobileStack} data-nav-transparent="true">
+        <section
+          className={s.mobileSceneCard}
+          style={{ backgroundImage: 'url("img/scene02_mobile.jpg")' }}
+        >
+          <div className={s.darkVeil} aria-hidden />
+          <div className={s.textTopLeft}>
+            <h2 className={s.titleMain}>
+              Répondez dans la langue<br />de chaque voyageur
+            </h2>
+          </div>
+          <div className={s.textBottomLeft}>
+            <h2 className={s.titleMain}>
+              El Conciergio gère tout,<br />vous profitez
+            </h2>
+          </div>
+          <div className={`${s.messages} ${s.mobileMessages}`} aria-hidden>
+            {MESSAGES.map((msg, i) => (
+              <div
+                key={i}
+                className={`${s.bubble} ${msg.green ? s.bubbleGreen : ''} ${s.mobileAnimatedBubble}`}
+                style={{ animationDelay: `${i * 260}ms` }}
+              >
+                <span>{msg.text}</span>
+                <span className={s.bubbleTail} />
+              </div>
+            ))}
+          </div>
+        </section>
+
+        <section
+          className={s.mobileSceneCard}
+          style={{ backgroundImage: 'url("img/scene02_mobile.webp")' }}
+        >
+          <div className={s.darkVeil} aria-hidden />
+          <div className={s.textCenter}>
+            <h2 className={s.titleCenter}>
+              Des recommandations<br />personnalisées, au bon moment
+            </h2>
+            <p className={s.subtitleCenter}>
+              Restaurants, activités, bonnes adresses et partenaires : proposez
+              des suggestions utiles et pertinentes tout au long du séjour.
+            </p>
+          </div>
+          <div className={s.pillsRow}>
+            {[
+              'Vos adresses fétiches',
+              'Vos partenaires locaux',
+              'Recommandations sur mesure',
+              'Bons plans du quartier',
+            ].map((label) => (
+              <span key={label} className={s.pill}>
+                <span className={s.pillDot} />
+                {label}
+              </span>
+            ))}
+          </div>
+        </section>
+      </div>
+    );
+  }
 
   return (
-    <div ref={containerRef} className={s.container}>
+    <div ref={containerRef} className={s.container} data-nav-transparent="true">
       <div ref={stickyRef} className={s.sticky}>
 
         <video ref={videoRef} src={VIDEO_SRC} muted playsInline preload="auto" className={s.video} />

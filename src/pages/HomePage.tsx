@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import Lenis from 'lenis';
+import PageSeo from '@/components/PageSeo';
 import ScrollVideoHero from '@/sections/ScrollVideoHero';
 import ServicesTicker from '@/sections/ServicesTicker';
 import ScrollRevealText from '@/sections/ScrollRevealText';
@@ -55,6 +56,10 @@ export default function HomePage() {
 
   return (
     <div style={{ background: 'var(--site-bg)', overflowX: 'clip', width: '100%' }}>
+      <PageSeo
+        title="El Conciergio — Conciergerie IA WhatsApp"
+        description="La conciergerie WhatsApp qui répond à vos clients à votre place. Moins d'appels. Plus de temps. Une expérience client plus fluide."
+      />
       <Navbar />
       <div style={{ position: 'relative', zIndex: 2, background: 'var(--site-bg)', marginBottom: footerHeight }}>
         <ScrollVideoHero />
