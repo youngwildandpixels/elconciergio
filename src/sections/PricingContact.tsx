@@ -34,7 +34,7 @@ const PLANS: Plan[] = [
       { text: 'Rapport mensuel', included: false },
     ],
     cta: 'Prendre rendez-vous',
-    ctaHref: 'https://wa.me/XXXXXXXXX',
+    ctaHref: 'mailto:contact@elconciergio.com',
   },
   {
     medal: '🥈',
@@ -55,7 +55,7 @@ const PLANS: Plan[] = [
       { text: 'Gestion multi-établissements', included: false },
     ],
     cta: 'Prendre rendez-vous',
-    ctaHref: 'https://wa.me/XXXXXXXXX',
+    ctaHref: 'mailto:contact@elconciergio.com',
   },
   {
     medal: '🥇',
@@ -73,7 +73,7 @@ const PLANS: Plan[] = [
       { text: 'Mise à jour contenu illimitée', included: true },
     ],
     cta: 'Prendre rendez-vous',
-    ctaHref: 'https://wa.me/XXXXXXXXX',
+    ctaHref: 'mailto:contact@elconciergio.com',
   },
 ];
 
@@ -142,11 +142,11 @@ export default function PricingContact() {
             Une question avant<br />de vous lancer ?
           </p>
           <div className={s.contactActions}>
-            <a href="https://wa.me/XXXXXXXXX" className={s.waBtn}>
+            <a href="mailto:contact@elconciergio.com" className={s.waBtn}>
               <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden>
                 <path d="M9 1C4.58 1 1 4.58 1 9c0 1.42.37 2.75 1.01 3.91L1 17l4.23-1.1A7.93 7.93 0 009 17c4.42 0 8-3.58 8-8s-3.58-8-8-8z" fill="white"/>
               </svg>
-              Écrire sur WhatsApp
+              Envoyer un email
             </a>
             <a href="mailto:contact@elconciergio.com" className={s.emailLink}>
               contact@elconciergio.com

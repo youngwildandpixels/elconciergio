@@ -31,7 +31,7 @@ export default function CTA() {
             Démo gratuite, personnalisée à votre logement, sans engagement.
           </p>
           <a
-            href="https://wa.me/XXXXXXXXX"
+            href="mailto:contact@elconciergio.com"
             className="inline-flex items-center gap-3 font-semibold rounded-full transition-all duration-200"
             style={{
               background: 'white',

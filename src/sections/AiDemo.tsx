@@ -51,7 +51,7 @@ export default function AiDemo() {
             Le simulateur IA interactif sera connecté lors de la Passe 2.
           </p>
           <a
-            href="https://wa.me/XXXXXXXXX"
+            href="mailto:contact@elconciergio.com"
             className="btn-primary"
             style={{ textDecoration: 'none' }}
           >

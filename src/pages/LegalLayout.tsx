@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import Navbar from '@/sections/Navbar';
 import s from './LegalPages.module.css';
 
 export default function LegalLayout({
@@ -10,12 +11,7 @@ export default function LegalLayout({
 }) {
   return (
     <div className={s.page}>
-      <header className={s.header}>
-        <Link to="/" className={s.logo}>
-          <span className={s.logoEl}>El</span>
-          <span> Conciergio</span>
-        </Link>
-      </header>
+      <Navbar forceBeige />
 
       <main className={s.main}>
         <div className={s.container}>

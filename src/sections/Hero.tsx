@@ -286,7 +286,7 @@ export default function Hero() {
               className={`flex flex-col sm:flex-row gap-3 items-center lg:items-start justify-center lg:justify-start transition-all duration-700 delay-300 ${visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}
             >
               <a
-                href="https://wa.me/XXXXXXXXX"
+                href="mailto:contact@elconciergio.com"
                 className="btn-primary"
                 style={{ textDecoration: 'none', fontSize: '15px', padding: '15px 30px' }}
               >

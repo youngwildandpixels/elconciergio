@@ -129,7 +129,7 @@ export default function Pricing() {
         {/* CTA below */}
         <div className={`text-center reveal reveal-delay-3 ${isVisible ? 'visible' : ''}`}>
           <a
-            href="https://wa.me/XXXXXXXXX"
+            href="mailto:contact@elconciergio.com"
             className="btn-primary"
             style={{ textDecoration: 'none', fontSize: '16px', padding: '16px 36px' }}
           >

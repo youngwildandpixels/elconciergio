@@ -11,26 +11,24 @@ export default function MentionsLegales() {
       <LegalLayout title="Mentions légales">
         <h2>Éditeur du site</h2>
         <p>
-          Le site El Conciergio est édité par la société El Conciergio, SAS au capital de 10 000 €,
-          immatriculée au Registre du Commerce et des Sociétés de Paris sous le numéro 123 456 789.
+          Le site El Conciergio est édité par Young, Wild & Pixels Agency.
         </p>
         <p>
-          Siège social : 12 rue de la Conciergerie, 75001 Paris, France.<br />
-          Numéro de TVA intracommunautaire : FR 12 345 678 901.<br />
-          Directeur de la publication : Jean Dupont.
+          Numéro de SIRET : 915 379 929 00028<br />
+          Adresse : 160 boulevard Félix Faure, 93300 Aubervilliers, France.
         </p>
 
         <h2>Hébergement</h2>
         <p>
-          Le site est hébergé par Vercel Inc., 340 S Lemon Ave #4133, Walnut, CA 91789, États-Unis.<br />
-          Téléphone : +1 (877) 837-7049.
+          Le site est hébergé par Hostinger International Ltd.<br />
+          Adresse : 61 Lordou Vironos str., 6023 Larnaca, Chypre.<br />
+          Site web : <a href="https://www.hostinger.com" target="_blank" rel="noreferrer">www.hostinger.com</a>
         </p>
 
         <h2>Contact</h2>
         <p>
           Pour toute question concernant le site, vous pouvez nous contacter à l'adresse suivante :<br />
-          Email : <a href="mailto:contact@elconciergio.com">contact@elconciergio.com</a><br />
-          Téléphone : +33 1 23 45 67 89
+          Email : <a href="mailto:contact@elconciergio.com">contact@elconciergio.com</a>
         </p>
 
         <h2>Propriété intellectuelle</h2>

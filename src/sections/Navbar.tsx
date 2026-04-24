@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 import s from './Navbar.module.css';
 
 const MOBILE_BREAKPOINT = 760;
@@ -32,16 +33,24 @@ function scrollToHash(href: string) {
   }
 }
 
-export default function Navbar() {
+export default function Navbar({ forceBeige = false }: { forceBeige?: boolean }) {
   const [menuOpen, setMenuOpen] = useState(false);
   const headerRef = useRef<HTMLElement>(null);
   const lastScrollY = useRef(0);
+  const location = useLocation();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const header = headerRef.current;
     if (!header) return;
 
     const onScroll = () => {
+      if (forceBeige) {
+        header.classList.add(s.themeBeige);
+        header.classList.remove(s.themeTransparent, s.navbarHidden);
+        return;
+      }
+
       const current = window.scrollY;
       const atTop = current < 10;
       const delta = current - lastScrollY.current;
@@ -80,24 +89,36 @@ export default function Navbar() {
     onScroll();
     window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
-  }, [menuOpen]);
+  }, [forceBeige, menuOpen]);
 
   const handleClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
     e.preventDefault();
     setMenuOpen(false);
+
+    if (location.pathname !== '/') {
+      navigate({ pathname: '/', hash: href });
+      window.setTimeout(() => scrollToHash(href), 80);
+      return;
+    }
+
     scrollToHash(href);
   };
 
   return (
-    <header ref={headerRef} className={`${s.navbar} ${menuOpen ? s.menuOpen : ''}`}>
+    <header ref={headerRef} className={`${s.navbar} ${forceBeige ? s.themeBeige : ''} ${menuOpen ? s.menuOpen : ''}`}>
       <div className={s.bg} />
 
       <div className={s.inner}>
         <a
-          href="#"
+          href="/"
           className={s.logoLink}
           onClick={(e) => {
             e.preventDefault();
+            setMenuOpen(false);
+            if (location.pathname !== '/') {
+              navigate('/');
+              return;
+            }
             window.scrollTo({ top: 0, behavior: 'smooth' });
           }}
         >
