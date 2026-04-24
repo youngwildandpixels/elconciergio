@@ -99,7 +99,7 @@ export default function Footer() {
   const columns = [
     { title: 'Navigation', links: NAV_LINKS },
     { title: 'Contact', links: CONTACT_LINKS },
-    { title: 'Légal', links: LEGAL_LINKS },
+    { title: 'Légales', links: LEGAL_LINKS },
   ];
 
   return (
@@ -160,8 +160,8 @@ export default function Footer() {
 
         {/* Bottom */}
         <div className={s.bottom}>
-          <p className={s.copyright}>© 2025 El Conciergio. Tous droits réservés.</p>
-          <p className={s.credit}>Propulsé par WhatsApp Business API & Claude AI</p>
+          <p className={s.copyright}>© 2026 El Conciergio. Tous droits réservés.</p>
+          <p className={s.credit}>Propulsé par Young, Wild & Pixels Agency</p>
         </div>
       </div>
     </footer>

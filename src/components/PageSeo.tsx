@@ -1,4 +1,5 @@
 import { useEffect } from 'react';
+import SchemaMarkup from './SchemaMarkup';
 
 type PageSeoProps = {
   title: string;
@@ -99,5 +100,5 @@ export default function PageSeo({
     upsertMetaByName('twitter:image', imageUrl);
   }, [canonicalPath, description, imagePath, robots, siteName, title]);
 
-  return null;
+  return <SchemaMarkup />;
 }

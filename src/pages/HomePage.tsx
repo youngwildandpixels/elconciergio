@@ -57,8 +57,8 @@ export default function HomePage() {
   return (
     <div style={{ background: 'var(--site-bg)', overflowX: 'clip', width: '100%' }}>
       <PageSeo
-        title="El Conciergio — Conciergerie IA WhatsApp"
-        description="La conciergerie WhatsApp qui répond à vos clients à votre place. Moins d'appels. Plus de temps. Une expérience client plus fluide."
+        title="El Conciergio — Conciergerie WhatsApp IA pour Airbnb & Gîtes"
+        description="Votre bot WhatsApp pour Airbnb, gîtes et B&B. Répond à vos voyageurs 24h/24, multilingue, opérationnel en moins de 7 jours. Découvrez El Conciergio →"
       />
       <Navbar />
       <div style={{ position: 'relative', zIndex: 2, background: 'var(--site-bg)', marginBottom: footerHeight }}>

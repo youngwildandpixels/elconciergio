@@ -33,7 +33,7 @@ const PLANS: Plan[] = [
       { text: 'Upsell automatique', included: false },
       { text: 'Rapport mensuel', included: false },
     ],
-    cta: 'Commencer l\'essai',
+    cta: 'Prendre rendez-vous',
     ctaHref: 'https://wa.me/XXXXXXXXX',
   },
   {
@@ -54,7 +54,7 @@ const PLANS: Plan[] = [
       { text: 'Rapport mensuel', included: false },
       { text: 'Gestion multi-établissements', included: false },
     ],
-    cta: 'Commencer l\'essai',
+    cta: 'Prendre rendez-vous',
     ctaHref: 'https://wa.me/XXXXXXXXX',
   },
   {

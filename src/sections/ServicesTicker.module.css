@@ -89,12 +89,14 @@
 
   .track {
     gap: 8px;
-    animation: scrollLeft 24s linear infinite;
+    animation: none;
+    will-change: transform;
   }
 
   .trackReverse {
     gap: 8px;
-    animation: scrollRight 24s linear infinite !important;
+    animation: none !important;
+    will-change: transform;
   }
 
   .pill {

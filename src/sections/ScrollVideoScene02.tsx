@@ -579,7 +579,7 @@ export default function ScrollVideoScene02() {
         <div className={s.textTopLeft}>
           <div className={s.revealOuter}>
             <h2 ref={titleTopLeftRef as React.RefObject<HTMLHeadingElement>} className={s.titleMain} style={{ opacity: 0 }}>
-              Répondez dans la langue<br />de chaque voyageur
+              Répondez dans la langue de chaque voyageur
             </h2>
           </div>
         </div>
@@ -588,7 +588,7 @@ export default function ScrollVideoScene02() {
         <div className={s.textBottomLeft}>
           <div className={s.revealOuter}>
             <h2 ref={titleBottomLeftRef as React.RefObject<HTMLHeadingElement>} className={s.titleMain} style={{ opacity: 0 }}>
-              El Conciergio gère tout,<br />vous profitez
+              El Conciergio gère tout, vous profitez
             </h2>
           </div>
         </div>
