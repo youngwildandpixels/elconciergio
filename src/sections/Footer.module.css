@@ -170,16 +170,22 @@
   gap: 10px;
 }
 
-.linkList a {
+.linkList a,
+.linkList button {
   font-family: 'GT America Expanded', sans-serif;
   font-size: 15px;
   color: rgba(242, 238, 231, 0.8);
   text-decoration: none;
   transition: color 200ms ease;
   display: inline-block;
+  border: 0;
+  background: transparent;
+  padding: 0;
+  cursor: pointer;
 }
 
-.linkList a:hover {
+.linkList a:hover,
+.linkList button:hover {
   color: #f2eee7;
 }
 

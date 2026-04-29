@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { trackContactClick, trackEvent } from '@/lib/analytics';
 import s from './Navbar.module.css';
 
 const MOBILE_BREAKPOINT = 760;
@@ -96,11 +97,13 @@ export default function Navbar({ forceBeige = false }: { forceBeige?: boolean })
     setMenuOpen(false);
 
     if (location.pathname !== '/') {
+      trackEvent({ action: 'nav_click', category: 'navigation', label: href });
       navigate({ pathname: '/', hash: href });
       window.setTimeout(() => scrollToHash(href), 80);
       return;
     }
 
+    trackEvent({ action: 'nav_click', category: 'navigation', label: href });
     scrollToHash(href);
   };
 
@@ -139,7 +142,11 @@ export default function Navbar({ forceBeige = false }: { forceBeige?: boolean })
               {l.label}
             </a>
           ))}
-          <a href="mailto:contact@elconciergio.com" className={s.contactBtn}>
+          <a
+            href="mailto:contact@elconciergio.com"
+            className={s.contactBtn}
+            onClick={() => trackContactClick('navbar_desktop')}
+          >
             {WA_ICON}
             Contact
           </a>
@@ -170,7 +177,14 @@ export default function Navbar({ forceBeige = false }: { forceBeige?: boolean })
               {l.label}
             </a>
           ))}
-          <a href="mailto:contact@elconciergio.com" className={s.mobileContactBtn} onClick={() => setMenuOpen(false)}>
+          <a
+            href="mailto:contact@elconciergio.com"
+            className={s.mobileContactBtn}
+            onClick={() => {
+              trackContactClick('navbar_mobile');
+              setMenuOpen(false);
+            }}
+          >
             {WA_ICON}
             Contact
           </a>

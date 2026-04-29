@@ -1,4 +1,6 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import AnalyticsPageViews from '@/components/AnalyticsPageViews';
+import CookieBanner from '@/components/CookieBanner';
 import HomePage from '@/pages/HomePage';
 import MentionsLegales from '@/pages/MentionsLegales';
 import PolitiqueConfidentialite from '@/pages/PolitiqueConfidentialite';
@@ -22,12 +24,14 @@ export default function App() {
 
   return (
     <BrowserRouter basename={basename}>
+      <AnalyticsPageViews />
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/mentions-legales" element={<MentionsLegales />} />
         <Route path="/politique-confidentialite" element={<PolitiqueConfidentialite />} />
         <Route path="/cgv" element={<CGV />} />
       </Routes>
+      <CookieBanner />
     </BrowserRouter>
   );
 }

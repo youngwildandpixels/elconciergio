@@ -1,0 +1,95 @@
+.banner {
+  position: fixed;
+  left: 16px;
+  right: 16px;
+  bottom: 16px;
+  z-index: 1000;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 18px;
+  align-items: center;
+  max-width: 920px;
+  margin: 0 auto;
+  padding: 16px;
+  border: 1px solid rgba(31, 26, 23, 0.14);
+  border-radius: 8px;
+  background: rgba(242, 238, 231, 0.96);
+  color: #1f1a17;
+  box-shadow: 0 18px 55px rgba(0, 0, 0, 0.18);
+  backdrop-filter: blur(14px);
+}
+
+.title {
+  margin: 0 0 6px;
+  font-family: 'GT America Expanded', 'GT America', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.text {
+  margin: 0;
+  max-width: 620px;
+  font-size: 14px;
+  line-height: 1.45;
+}
+
+.link {
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.actions {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.button {
+  min-height: 42px;
+  padding: 0 16px;
+  border: 1px solid rgba(31, 26, 23, 0.24);
+  border-radius: 8px;
+  background: transparent;
+  color: #1f1a17;
+  font-family: 'GT America', sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 180ms ease, border-color 180ms ease, transform 180ms ease;
+}
+
+.button:hover {
+  border-color: rgba(31, 26, 23, 0.42);
+  background: rgba(255, 255, 255, 0.35);
+  transform: translateY(-1px);
+}
+
+.primary {
+  border-color: #25d366;
+  background: #25d366;
+  color: #06150b;
+}
+
+.primary:hover {
+  border-color: #25d366;
+  background: #25d366;
+}
+
+@media (max-width: 720px) {
+  .banner {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+
+  .actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .button {
+    width: 100%;
+    padding: 0 12px;
+  }
+}

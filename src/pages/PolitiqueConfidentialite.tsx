@@ -66,9 +66,12 @@ export default function PolitiqueConfidentialite() {
 
         <h2>Cookies</h2>
         <p>
-          Notre site utilise des cookies essentiels au fonctionnement du service et des cookies
-          analytiques pour améliorer l'expérience utilisateur. Vous pouvez gérer vos préférences
-          de cookies via les paramètres de votre navigateur.
+          Notre site peut utiliser Google Analytics, uniquement après votre accord, afin de mesurer
+          l'audience, les pages consultées et les clics sur les appels à l'action. Ces mesures nous
+          permettent d'améliorer la landing page et de comprendre les contenus les plus utiles.
+          Vous pouvez accepter ou refuser ces cookies depuis la bannière affichée sur le site, puis
+          modifier votre choix à tout moment via le lien « Gérer les cookies » présent dans le pied
+          de page.
         </p>
 
         <h2>Sécurité</h2>

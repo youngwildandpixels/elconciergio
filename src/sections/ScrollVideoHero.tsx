@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
+import { trackContactClick } from '@/lib/analytics';
 import s from './ScrollVideoHero.module.css';
 
 const PX_PER_SECOND = 225;
@@ -446,7 +447,11 @@ export default function ScrollVideoHero() {
               Une expérience client plus fluide.
             </p>
 
-            <a href="#" className={s.cta}>
+            <a
+              href="mailto:contact@elconciergio.com"
+              className={s.cta}
+              onClick={() => trackContactClick('hero_mobile')}
+            >
               Déployer mon agent
               <span className={s.ctaArrow}>
                 <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
@@ -554,7 +559,11 @@ export default function ScrollVideoHero() {
             Une expérience client plus fluide.
           </p>
 
-          <a href="#" className={s.cta}>
+          <a
+            href="mailto:contact@elconciergio.com"
+            className={s.cta}
+            onClick={() => trackContactClick('hero_desktop')}
+          >
             Déployer mon agent
             <span className={s.ctaArrow}>
               <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
