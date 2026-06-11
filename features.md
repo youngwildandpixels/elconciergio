@@ -139,7 +139,7 @@ Label: TARIFS
 H2: "Simple et transparent"
 
 Card 1 — Mise en place (one-time)
-Price: À partir de 1.200€
+Price: À partir de 150€
 "Configuration complète, personnalisée à votre établissement"
 ✓ Intégration WhatsApp Business
 ✓ Personnalisation complète du contenu
@@ -148,7 +148,7 @@ Price: À partir de 1.200€
 ✓ Formation incluse
 
 Card 2 — Mensuel (badge "Le plus populaire")
-Price: 90€ / mois
+Price: Dès 50€ / mois
 "Tout inclus. Sans engagement."
 ✓ Hébergement & infrastructure
 ✓ Intelligence artificielle

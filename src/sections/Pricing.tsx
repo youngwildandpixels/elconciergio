@@ -60,7 +60,7 @@ export default function Pricing() {
             </p>
             <div className="flex items-end gap-2 mb-2">
               <span className="font-serif" style={{ fontSize: '42px', color: 'var(--black)', letterSpacing: '-0.03em', lineHeight: 1 }}>
-                À partir de 1.200€
+                À partir de 150€
               </span>
             </div>
             <p style={{ fontSize: '13px', color: 'var(--gray-muted)', fontFamily: "'DM Sans', sans-serif", marginBottom: 28 }}>
@@ -104,7 +104,7 @@ export default function Pricing() {
             </p>
             <div className="flex items-end gap-2 mb-2">
               <span className="font-serif text-white" style={{ fontSize: '42px', letterSpacing: '-0.03em', lineHeight: 1 }}>
-                90€
+                50€
               </span>
               <span style={{ fontSize: '16px', color: 'rgba(255,255,255,0.5)', fontFamily: "'DM Sans', sans-serif", marginBottom: 6 }}>/mois</span>
             </div>

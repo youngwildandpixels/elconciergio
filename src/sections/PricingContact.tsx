@@ -20,8 +20,8 @@ const PLANS: Plan[] = [
     medal: '🥉',
     name: 'Essentiel',
     sub: 'Gîtes & Airbnb — un logement unique',
-    setup: '500€',
-    monthly: '30€',
+    setup: '150€',
+    monthly: '50€',
     features: [
       { text: 'FAQ automatique 24h/24 (WiFi, accès, horaires)', included: true },
       { text: 'Multilingue FR / EN / NL / DE', included: true },
@@ -41,8 +41,8 @@ const PLANS: Plan[] = [
     medal: '🥈',
     name: 'Pro',
     sub: 'Chambres d\'hôtes & B&B — plusieurs chambres',
-    setup: '900€',
-    monthly: '90€',
+    setup: '500€',
+    monthly: '150€',
     featured: true,
     features: [
       { text: 'Tout Essentiel inclus', included: true },
@@ -62,8 +62,8 @@ const PLANS: Plan[] = [
     medal: '🥇',
     name: 'Premium',
     sub: 'Petits hôtels & Résidences — établissements pro',
-    setup: '1500€',
-    monthly: '150€',
+    setup: '1000€',
+    monthly: '350€',
     features: [
       { text: 'Tout Pro inclus', included: true },
       { text: 'Rapport mensuel propriétaire', included: true },

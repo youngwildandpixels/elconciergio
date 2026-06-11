@@ -98,7 +98,7 @@ export default function ROI() {
                 letterSpacing: '0.3px',
               }}
             >
-              Setup à partir de 1.200€ · 90€/mois tout inclus
+              Setup à partir de 150€ · dès 50€/mois
             </span>
           </div>
         </div>
