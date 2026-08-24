@@ -8,7 +8,7 @@ const schemaData = [
     '@type': 'Organization',
     name: 'El Conciergio',
     url: 'https://elconciergio.com',
-    logo: 'https://elconciergio.com/elconciergio/img/banner-mobile.webp',
+    logo: 'https://elconciergio.com/img/banner-mobile.webp',
     contactPoint: {
       '@type': 'ContactPoint',
       contactType: 'customer support',

@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://elconciergio.com/elconciergio/sitemap.xml
+Sitemap: https://elconciergio.com/sitemap.xml
