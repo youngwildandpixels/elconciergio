@@ -1,14 +1,20 @@
+import { useState } from 'react';
 import s from './PricingContact.module.css';
-import { trackContactClick } from '@/lib/analytics';
+import { trackContactClick, trackEvent } from '@/lib/analytics';
 
 type Feature = { text: string; included: boolean };
+
+type Billing = 'monthly' | 'annual';
 
 type Plan = {
   medal: string;
   name: string;
   sub: string;
-  setup: string;
+  setup: string;          // plein tarif
+  setupAnnual?: string;   // tarif annuel ; absent = pas de remise
   monthly: string;
+  annual: string;
+  annualSaving: string;
   featured?: boolean;
   features: Feature[];
   cta: string;
@@ -19,9 +25,12 @@ const PLANS: Plan[] = [
   {
     medal: '🥉',
     name: 'Essentiel',
-    sub: 'Gîtes & Airbnb — un logement unique',
+    sub: 'Gîtes & Airbnb : un logement unique',
     setup: '150€',
+    setupAnnual: '75€',
     monthly: '50€',
+    annual: '500€',
+    annualSaving: '−100€',
     features: [
       { text: 'FAQ automatique 24h/24 (WiFi, accès, horaires)', included: true },
       { text: 'Multilingue FR / EN / NL / DE', included: true },
@@ -40,9 +49,12 @@ const PLANS: Plan[] = [
   {
     medal: '🥈',
     name: 'Pro',
-    sub: 'Chambres d\'hôtes & B&B — plusieurs chambres',
+    sub: 'Chambres d\'hôtes & B&B : plusieurs chambres',
     setup: '500€',
+    setupAnnual: '250€',
     monthly: '150€',
+    annual: '1 500€',
+    annualSaving: '−300€',
     featured: true,
     features: [
       { text: 'Tout Essentiel inclus', included: true },
@@ -61,9 +73,11 @@ const PLANS: Plan[] = [
   {
     medal: '🥇',
     name: 'Premium',
-    sub: 'Petits hôtels & Résidences — établissements pro',
-    setup: '1000€',
+    sub: 'Petits hôtels & Résidences : établissements pro',
+    setup: '1 000€',
     monthly: '350€',
+    annual: '3 500€',
+    annualSaving: '−700€',
     features: [
       { text: 'Tout Pro inclus', included: true },
       { text: 'Rapport mensuel propriétaire', included: true },
@@ -79,6 +93,14 @@ const PLANS: Plan[] = [
 ];
 
 export default function PricingContact() {
+  const [billing, setBilling] = useState<Billing>('annual');
+  const isAnnual = billing === 'annual';
+
+  function selectBilling(next: Billing) {
+    setBilling(next);
+    trackEvent({ action: 'pricing_toggle', category: 'engagement', label: next });
+  }
+
   return (
     <section id="tarifs" className={s.section}>
       <div className={s.inner}>
@@ -87,6 +109,29 @@ export default function PricingContact() {
         <h2 className={s.title}>
           Choisissez<br />votre formule
         </h2>
+
+        {/* Billing toggle */}
+        <div className={s.toggleRow}>
+          <div className={s.toggle} role="group" aria-label="Mode de facturation">
+            <button
+              type="button"
+              className={`${s.toggleBtn} ${!isAnnual ? s.toggleBtnActive : ''}`}
+              aria-pressed={!isAnnual}
+              onClick={() => selectBilling('monthly')}
+            >
+              Mensuel
+            </button>
+            <button
+              type="button"
+              className={`${s.toggleBtn} ${isAnnual ? s.toggleBtnActive : ''}`}
+              aria-pressed={isAnnual}
+              onClick={() => selectBilling('annual')}
+            >
+              Annuel
+              <span className={s.togglePill}>2 mois offerts</span>
+            </button>
+          </div>
+        </div>
 
         {/* Pricing grid */}
         <div className={s.grid}>
@@ -104,13 +149,29 @@ export default function PricingContact() {
               <div className={s.priceBlock}>
                 <div className={s.priceRow}>
                   <span className={s.priceLabel}>Setup</span>
-                  <span className={s.priceAmount}>{plan.setup}</span>
+                  {isAnnual && plan.setupAnnual ? (
+                    <>
+                      <s className={s.setupOld}>{plan.setup}</s>
+                      <span className={s.priceAmount}>{plan.setupAnnual}</span>
+                    </>
+                  ) : (
+                    <span className={s.priceAmount}>{plan.setup}</span>
+                  )}
                 </div>
                 <div className={s.priceRow}>
-                  <span className={s.priceLabel}>Mensuel</span>
-                  <span className={s.priceAmount}>{plan.monthly}</span>
-                  <span className={s.priceUnit}>/mois</span>
+                  <span className={s.priceLabel}>{isAnnual ? 'Annuel' : 'Mensuel'}</span>
+                  <span className={s.priceAmount}>
+                    {isAnnual ? plan.annual : plan.monthly}
+                  </span>
+                  <span className={s.priceUnit}>{isAnnual ? '/an' : '/mois'}</span>
                 </div>
+                {/* Rendu dans les deux modes pour figer la hauteur des cartes */}
+                <p
+                  className={`${s.savingBadge} ${isAnnual ? '' : s.savingBadgeHidden}`}
+                  aria-hidden={!isAnnual}
+                >
+                  2 mois offerts · {plan.annualSaving}
+                </p>
               </div>
 
               <div className={s.divider} />
@@ -130,7 +191,7 @@ export default function PricingContact() {
               <a
                 href={plan.ctaHref}
                 className={`${s.btn} ${plan.featured ? s.btnPrimary : ''}`}
-                onClick={() => trackContactClick(`pricing_${plan.name.toLowerCase()}`)}
+                onClick={() => trackContactClick(`pricing_${plan.name.toLowerCase()}_${billing}`)}
               >
                 {plan.cta}
               </a>

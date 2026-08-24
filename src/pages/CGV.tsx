@@ -5,7 +5,7 @@ export default function CGV() {
   return (
     <>
       <PageSeo
-        title="Conditions générales de vente — El Conciergio"
+        title="Conditions générales de vente | El Conciergio"
         description="Retrouvez les conditions générales de vente d'El Conciergio : services, tarifs, résiliation, responsabilité et droit applicable."
       />
       <LegalLayout title="Conditions générales de vente">
@@ -36,15 +36,29 @@ export default function CGV() {
           La TVA applicable est celle en vigueur au jour de la facturation.
         </p>
         <p>
-          La facturation est mensuelle et payable à l'avance. Le non-paiement d'une échéance
-          entraînera la suspension immédiate des services sans indemnité.
+          L'abonnement est proposé au choix en formule mensuelle ou en formule annuelle, toutes deux
+          payables à l'avance. La formule annuelle est réglée en une seule fois à la souscription et
+          donne droit à deux mois offerts par rapport au cumul de douze mensualités.
+        </p>
+        <p>
+          Les frais de mise en service sont facturés une seule fois, à la souscription. Ils sont
+          réduits de 50% sur les formules Essentiel et Pro souscrites en annuel. Le non-paiement
+          d'une échéance entraînera la suspension immédiate des services sans indemnité.
         </p>
 
         <h2>Durée et résiliation</h2>
         <p>
-          L'abonnement est souscrit pour une durée indéterminée. Le client peut résilier à tout
-          moment, avec un préavis de 30 jours calendaires, par email à contact@elconciergio.com.
-          La résiliation prendra effet à la fin de la période de facturation en cours.
+          En formule mensuelle, l'abonnement est souscrit pour une durée indéterminée. Le client peut
+          résilier à tout moment, avec un préavis de 30 jours calendaires, par email à
+          contact@elconciergio.com. La résiliation prendra effet à la fin de la période de
+          facturation en cours.
+        </p>
+        <p>
+          En formule annuelle, l'abonnement est souscrit pour une durée ferme de 12 mois. Il est
+          reconduit tacitement par périodes successives de 12 mois, sauf dénonciation par email à
+          contact@elconciergio.com au moins 30 jours avant la date d'échéance. En cas de résiliation
+          anticipée du fait du client, les sommes versées au titre de la période en cours restent
+          acquises à El Conciergio.
         </p>
         <p>
           El Conciergio se réserve le droit de résilier l'abonnement en cas de manquement grave

@@ -29,7 +29,69 @@
   font-weight: 400;
   line-height: 0.95;
   letter-spacing: -0.03em;
-  margin: 0 0 clamp(48px, 8vw, 80px);
+  margin: 0 0 clamp(28px, 4vw, 40px);
+}
+
+/* ── Billing toggle ──────────────────────────────────────────── */
+
+.toggleRow {
+  display: flex;
+  justify-content: center;
+  margin: 0 0 clamp(32px, 5vw, 48px);
+}
+
+.toggle {
+  display: inline-flex;
+  gap: 4px;
+  padding: 4px;
+  border: 1px solid rgba(242, 238, 231, 0.2);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.toggleBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 11px 22px;
+  border: none;
+  border-radius: 9px;
+  background: transparent;
+  color: rgba(242, 238, 231, 0.65);
+  font-family: 'GT America', sans-serif;
+  font-size: 14px;
+  line-height: 1;
+  cursor: pointer;
+  transition: background 200ms ease, color 200ms ease;
+}
+
+.toggleBtn:hover {
+  background: rgba(242, 238, 231, 0.07);
+  color: #f2eee7;
+}
+
+.toggleBtnActive,
+.toggleBtnActive:hover {
+  background: #f2eee7;
+  color: #0e0d0b;
+}
+
+.togglePill {
+  font-family: 'GT America Expanded', sans-serif;
+  font-size: 9px;
+  letter-spacing: 1.6px;
+  text-transform: uppercase;
+  padding: 4px 8px;
+  border-radius: 6px;
+  background: rgba(242, 238, 231, 0.16);
+  color: #f2eee7;
+  white-space: nowrap;
+  transition: background 200ms ease, color 200ms ease;
+}
+
+.toggleBtnActive .togglePill {
+  background: rgba(14, 13, 11, 0.1);
+  color: #0e0d0b;
 }
 
 /* ── Grid ────────────────────────────────────────────────────── */
@@ -145,6 +207,35 @@
   font-family: 'GT America', sans-serif;
   font-size: 13px;
   color: rgba(242, 238, 231, 0.45);
+}
+
+.setupOld {
+  font-family: 'GT America Expanded', sans-serif;
+  font-size: clamp(15px, 1.6vw, 19px);
+  line-height: 1;
+  letter-spacing: -0.02em;
+  color: rgba(242, 238, 231, 0.35);
+  text-decoration: line-through;
+}
+
+.savingBadge {
+  align-self: flex-start;
+  margin: 4px 0 0;
+  padding: 6px 12px;
+  border-radius: 8px;
+  border: 1px solid rgba(242, 238, 231, 0.18);
+  background: rgba(242, 238, 231, 0.08);
+  font-family: 'GT America Expanded', sans-serif;
+  font-size: 9px;
+  letter-spacing: 1.6px;
+  text-transform: uppercase;
+  color: rgba(242, 238, 231, 0.9);
+  white-space: nowrap;
+}
+
+/* Conserve la place occupée pour éviter un saut de hauteur au basculement */
+.savingBadgeHidden {
+  visibility: hidden;
 }
 
 /* ── Divider ─────────────────────────────────────────────────── */
@@ -292,6 +383,17 @@
 /* ── Responsive ──────────────────────────────────────────────── */
 
 @media (max-width: 900px) {
+  .toggle {
+    display: flex;
+    width: 100%;
+  }
+
+  .toggleBtn {
+    flex: 1;
+    justify-content: center;
+    padding: 12px 14px;
+  }
+
   .grid {
     grid-template-columns: 1fr;
     border-radius: 16px;
