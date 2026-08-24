@@ -72,7 +72,7 @@ export default function ROI() {
               fontFamily: "'DM Sans', sans-serif",
             }}
           >
-            Chaque réservation directe vous fait économiser la commission Booking.com —{' '}
+            Chaque réservation directe vous fait économiser la commission Booking.com,{' '}
             <span className="text-white font-medium">entre 15% et 18% du montant</span>.
             Une seule par mois couvre entièrement El Conciergio.{' '}
             <span className="text-white font-medium">Le reste, c'est du bénéfice pur.</span>

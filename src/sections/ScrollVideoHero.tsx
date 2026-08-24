@@ -14,7 +14,7 @@ const MOBILE_FREEZE_PROGRESS = 0.82;
 const HERO_TICKER_PILLS = [
   'Réponse en moins de 3 secondes',
   'Disponible 24h/24, 7j/7',
-  'Multilingue — FR, EN, NL, DE',
+  'Multilingue : FR, EN, NL, DE',
   'Zéro intervention de votre part',
   'Setup en moins de 24h',
   'WhatsApp natif, sans application',

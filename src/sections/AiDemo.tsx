@@ -22,7 +22,7 @@ export default function AiDemo() {
             Parlez à El Conciergio
           </h2>
           <p style={{ fontSize: '17px', color: 'var(--gray-text)', fontFamily: "'DM Sans', sans-serif", maxWidth: 500, margin: '0 auto' }}>
-            Testez le bot en temps réel — posez n'importe quelle question en français, anglais ou néerlandais
+            Testez le bot en temps réel. Posez n'importe quelle question en français, anglais ou néerlandais
           </p>
         </div>
 

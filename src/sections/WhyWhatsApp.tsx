@@ -13,7 +13,7 @@ const REASONS = [
       maximumFractionDigits: 1,
     })} Mds`,
     label: "D'utilisateurs",
-    desc: "Vos clients ont déjà l'app. Aucun téléchargement, aucune friction — juste une conversation naturelle.",
+    desc: "Vos clients ont déjà l'app. Aucun téléchargement, aucune friction. Juste une conversation naturelle.",
   },
   {
     getStat: (progress: number) => `< ${Math.max(1, Math.round(20 * progress))}s`,

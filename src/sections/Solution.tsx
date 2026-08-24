@@ -86,7 +86,7 @@ export default function Solution() {
                     "Toujours disponible.<br />Jamais fatigué."
                   </p>
                   <p style={{ fontSize: '13px', color: 'rgba(255,255,255,0.6)', fontFamily: "'DM Sans', sans-serif" }}>
-                    — El Conciergio
+                    El Conciergio
                   </p>
                 </div>
 

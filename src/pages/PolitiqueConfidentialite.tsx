@@ -5,7 +5,7 @@ export default function PolitiqueConfidentialite() {
   return (
     <>
       <PageSeo
-        title="Politique de confidentialité — El Conciergio"
+        title="Politique de confidentialité | El Conciergio"
         description="Consultez la politique de confidentialité d'El Conciergio et les modalités de traitement des données personnelles."
       />
       <LegalLayout title="Politique de confidentialité">

@@ -4,9 +4,9 @@ import { useScrollReveal } from '@/hooks/useScrollReveal';
 const features = [
   { emoji: '🔑', title: 'Codes d\'accès & WiFi', desc: 'Transmis instantanément, au bon moment' },
   { emoji: '🕐', title: 'Check-in / Check-out', desc: 'Horaires, instructions d\'arrivée, boîte à clés' },
-  { emoji: '🥐', title: 'Commandes de services', desc: 'Paniers petit-déjeuner, extras — vendus automatiquement' },
+  { emoji: '🥐', title: 'Commandes de services', desc: 'Paniers petit-déjeuner et extras vendus automatiquement' },
   { emoji: '📍', title: 'Guide local personnalisé', desc: 'Vos vraies adresses, pas celles de Google' },
-  { emoji: '🚨', title: 'Numéros d\'urgence', desc: 'Propriétaire, médecin, taxi — toujours disponibles' },
+  { emoji: '🚨', title: 'Numéros d\'urgence', desc: 'Propriétaire, médecin, taxi : toujours disponibles' },
   { emoji: '⭐', title: 'Demande d\'avis Google', desc: 'Envoyée automatiquement au bon moment après le séjour' },
   { emoji: '🎂', title: 'Fidélisation & anniversaire', desc: 'Offres personnalisées pour faire revenir vos clients' },
   { emoji: '📅', title: 'Relances basse saison', desc: 'Cibler les anciens clients avec des offres exclusives' },

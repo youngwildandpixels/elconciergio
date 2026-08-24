@@ -499,7 +499,7 @@ export default function ScrollRevealGrid() {
               Une relation qui continue,<br />même après le séjour
             </h2>
             <p className={s.sub}>
-              El Conciergio maintient le lien avec vos voyageurs —
+              El Conciergio maintient le lien avec vos voyageurs :
               anniversaires, nouvelles saisons, occasions spéciales.
               Automatiquement, sur WhatsApp.
             </p>
@@ -526,7 +526,7 @@ export default function ScrollRevealGrid() {
               Périodes creuses ?<br />Relancez vos anciens clients.
             </h2>
             <p className={s.subSm}>
-              Nouvelles dispo, offres ciblées — envoyées au bon moment, sur WhatsApp.
+              Nouvelles dispo, offres ciblées : envoyées au bon moment, sur WhatsApp.
             </p>
           </div>
         </article>
@@ -535,9 +535,9 @@ export default function ScrollRevealGrid() {
           <img src="/img/bloc3_mobile copie.webp" alt="" aria-hidden className={s.mobileCardImage} />
           <div className={s.mobileCardVeil} />
           <div className={`${s.mobileCardText} ${s.mobileCardCenter} ${s.mobileCardLast}`}>
-            <span className={s.statValue}>+31%</span>
+            <span className={s.statValue}>Relation</span>
             <p className={s.statDesc}>
-              de taux de retour moyen<br />chez les hôtes El Conciergio
+              entretenue après le séjour<br />pour favoriser les retours
             </p>
           </div>
         </article>
@@ -565,7 +565,7 @@ export default function ScrollRevealGrid() {
                   Périodes creuses ?<br />Relancez vos anciens clients.
                 </h3>
                 <p className={s.subSm}>
-                  Nouvelles dispo, offres ciblées — envoyées au bon moment, sur WhatsApp.
+                  Nouvelles dispo, offres ciblées : envoyées au bon moment, sur WhatsApp.
                 </p>
               </div>
               <ul className={s.checklist}>
@@ -610,7 +610,7 @@ export default function ScrollRevealGrid() {
                 </h2>
                 <div ref={textASubRef}>
                   <p className={s.sub}>
-                    El Conciergio maintient le lien avec vos voyageurs —
+                    El Conciergio maintient le lien avec vos voyageurs :
                     anniversaires, nouvelles saisons, occasions spéciales.
                     Automatiquement, sur WhatsApp.
                   </p>
@@ -628,9 +628,9 @@ export default function ScrollRevealGrid() {
               />
               <div ref={veilCRef} className={s.blockCGrad} style={{ opacity: 0 }} />
               <div ref={textCRef} className={s.textC} style={{ opacity: 0 }}>
-                <span className={s.statValue}>+31%</span>
+                <span className={s.statValue}>Relation</span>
                 <p className={s.statDesc}>
-                  de taux de retour moyen<br />chez les hôtes El Conciergio
+                  entretenue après le séjour<br />pour favoriser les retours
                 </p>
               </div>
             </div>

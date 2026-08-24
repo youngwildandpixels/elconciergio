@@ -28,7 +28,7 @@ const SCENARIOS: Scenario[] = [
       { role: 'user', text: 'Vous auriez une bonne adresse pour dîner ce soir ?', delay: 800 },
       {
         role: 'bot',
-        text: 'Absolument 🍽️ Je vous recommande Le Jardin des Sens, à 5 min à pied — cuisine du marché, excellent rapport qualité-prix. Je peux vous réserver une table si vous le souhaitez !',
+        text: 'Absolument 🍽️ Je vous recommande Le Jardin des Sens, à 5 min à pied, cuisine du marché et excellent rapport qualité-prix. Je peux vous réserver une table si vous le souhaitez !',
         delay: 2200,
       },
       { role: 'user', text: 'Super, pour 2 personnes à 20h ?', delay: 2200 },
@@ -44,7 +44,7 @@ const SCENARIOS: Scenario[] = [
     messages: [
       {
         role: 'bot',
-        text: 'Bonjour Sophie 👋 Vous nous avez rendu visite en juillet — c\'était un plaisir de vous accueillir !',
+        text: 'Bonjour Sophie 👋 Vous nous avez rendu visite en juillet, c\'était un plaisir de vous accueillir !',
         delay: 600,
       },
       {
@@ -55,7 +55,7 @@ const SCENARIOS: Scenario[] = [
       { role: 'user', text: 'Oh super ! Le code promo c\'est quoi ?', delay: 2200 },
       {
         role: 'bot',
-        text: 'Utilisez le code RETOUR10 directement sur notre site. Offre valable jusqu\'au 31 octobre — profitez-en !',
+        text: 'Utilisez le code RETOUR10 directement sur notre site. Offre valable jusqu\'au 31 octobre, profitez-en !',
         delay: 2200,
       },
       { role: 'user', text: 'Merci, je réserve ce week-end !', delay: 2000 },

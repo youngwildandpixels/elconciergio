@@ -14,7 +14,7 @@ const STEPS: Step[] = [
   { type: 'message', side: 'out', text: "Le départ est jusqu'à 11h00.\n\nSi vous avez besoin d'un late check-out, je transmets votre demande au propriétaire 😊", time: '21:04', delay: 700 },
   { type: 'message', side: 'in',  text: 'Super. Des restos à recommander ?', time: '21:05', delay: 2200 },
   { type: 'typing',  delay: 1100 },
-  { type: 'message', side: 'out', text: "Avec plaisir ! 🍽️\n\nL'Auberge d'Arimont — cuisine ardennaise, 5 min\nBrasserie Rochambeau — bières artisanales, 8 km\nLa Petite Baraque — brunch du dimanche\n\nBon appétit !", time: '21:05', delay: 900 },
+  { type: 'message', side: 'out', text: "Avec plaisir ! 🍽️\n\nL'Auberge d'Arimont : cuisine ardennaise, 5 min\nBrasserie Rochambeau : bières artisanales, 8 km\nLa Petite Baraque : brunch du dimanche\n\nBon appétit !", time: '21:05', delay: 900 },
 ];
 
 interface ChatMsg { id: number; side: 'in' | 'out'; text: string; time: string }

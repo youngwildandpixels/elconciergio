@@ -5,7 +5,7 @@ export default function MentionsLegales() {
   return (
     <>
       <PageSeo
-        title="Mentions légales — El Conciergio"
+        title="Mentions légales | El Conciergio"
         description="Consultez les mentions légales d'El Conciergio : éditeur, hébergement, propriété intellectuelle et contact."
       />
       <LegalLayout title="Mentions légales">

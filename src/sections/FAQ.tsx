@@ -8,7 +8,7 @@ const faqs = [
   },
   {
     q: 'Dans quelles langues El Conciergio répond-il ?',
-    a: 'Français, anglais, néerlandais et allemand — automatiquement selon la langue du client.',
+    a: 'Français, anglais, néerlandais et allemand, automatiquement selon la langue du client.',
   },
   {
     q: 'Combien de temps pour la mise en place ?',
