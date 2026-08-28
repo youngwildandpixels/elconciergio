@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { trackContactClick } from '@/lib/analytics';
+import { WHATSAPP_URL } from '@/lib/contact';
 import s from './ScrollVideoHero.module.css';
 
 const PX_PER_SECOND = 225;
@@ -448,7 +449,7 @@ export default function ScrollVideoHero() {
             </p>
 
             <a
-              href="mailto:contact@elconciergio.com"
+              href={WHATSAPP_URL}
               className={s.cta}
               onClick={() => trackContactClick('hero_mobile')}
             >
@@ -560,7 +561,7 @@ export default function ScrollVideoHero() {
           </p>
 
           <a
-            href="mailto:contact@elconciergio.com"
+            href={WHATSAPP_URL}
             className={s.cta}
             onClick={() => trackContactClick('hero_desktop')}
           >

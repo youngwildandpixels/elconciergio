@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
+import { WHATSAPP_URL } from '@/lib/contact';
 
 /* ─── conversation script ─── */
 type Step =
@@ -286,7 +287,7 @@ export default function Hero() {
               className={`flex flex-col sm:flex-row gap-3 items-center lg:items-start justify-center lg:justify-start transition-all duration-700 delay-300 ${visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}
             >
               <a
-                href="mailto:contact@elconciergio.com"
+                href={WHATSAPP_URL}
                 className="btn-primary"
                 style={{ textDecoration: 'none', fontSize: '15px', padding: '15px 30px' }}
               >

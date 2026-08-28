@@ -1,5 +1,6 @@
 /* Pricing Section — 2 cards */
 import { useScrollReveal } from '@/hooks/useScrollReveal';
+import { WHATSAPP_URL } from '@/lib/contact';
 
 const setupIncludes = [
   'Intégration WhatsApp Business',
@@ -129,7 +130,7 @@ export default function Pricing() {
         {/* CTA below */}
         <div className={`text-center reveal reveal-delay-3 ${isVisible ? 'visible' : ''}`}>
           <a
-            href="mailto:contact@elconciergio.com"
+            href={WHATSAPP_URL}
             className="btn-primary"
             style={{ textDecoration: 'none', fontSize: '16px', padding: '16px 36px' }}
           >

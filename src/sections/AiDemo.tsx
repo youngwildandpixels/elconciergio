@@ -1,5 +1,6 @@
 /* AiDemo — Live WhatsApp Simulator (Passe 2 placeholder) */
 import { useScrollReveal } from '@/hooks/useScrollReveal';
+import { WHATSAPP_URL } from '@/lib/contact';
 
 export default function AiDemo() {
   const { ref, isVisible } = useScrollReveal();
@@ -51,7 +52,7 @@ export default function AiDemo() {
             Le simulateur IA interactif sera connecté lors de la Passe 2.
           </p>
           <a
-            href="mailto:contact@elconciergio.com"
+            href={WHATSAPP_URL}
             className="btn-primary"
             style={{ textDecoration: 'none' }}
           >

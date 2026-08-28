@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import s from './PricingContact.module.css';
 import { trackContactClick, trackEvent } from '@/lib/analytics';
+import { WHATSAPP_URL } from '@/lib/contact';
 
 type Feature = { text: string; included: boolean };
 
@@ -43,8 +44,8 @@ const PLANS: Plan[] = [
       { text: 'Upsell automatique', included: false },
       { text: 'Rapport mensuel', included: false },
     ],
-    cta: 'Prendre rendez-vous',
-    ctaHref: 'mailto:contact@elconciergio.com',
+    cta: 'Prendre contact',
+    ctaHref: WHATSAPP_URL,
   },
   {
     medal: '🥈',
@@ -67,8 +68,8 @@ const PLANS: Plan[] = [
       { text: 'Rapport mensuel', included: false },
       { text: 'Gestion multi-établissements', included: false },
     ],
-    cta: 'Prendre rendez-vous',
-    ctaHref: 'mailto:contact@elconciergio.com',
+    cta: 'Prendre contact',
+    ctaHref: WHATSAPP_URL,
   },
   {
     medal: '🥇',
@@ -87,8 +88,8 @@ const PLANS: Plan[] = [
       { text: 'Support prioritaire 7j/7', included: true },
       { text: 'Mise à jour contenu illimitée', included: true },
     ],
-    cta: 'Prendre rendez-vous',
-    ctaHref: 'mailto:contact@elconciergio.com',
+    cta: 'Prendre contact',
+    ctaHref: WHATSAPP_URL,
   },
 ];
 
@@ -206,14 +207,14 @@ export default function PricingContact() {
           </p>
           <div className={s.contactActions}>
             <a
-              href="mailto:contact@elconciergio.com"
+              href={WHATSAPP_URL}
               className={s.waBtn}
               onClick={() => trackContactClick('pricing_contact_strip')}
             >
               <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden>
                 <path d="M9 1C4.58 1 1 4.58 1 9c0 1.42.37 2.75 1.01 3.91L1 17l4.23-1.1A7.93 7.93 0 009 17c4.42 0 8-3.58 8-8s-3.58-8-8-8z" fill="white"/>
               </svg>
-              Envoyer un email
+              Écrire sur WhatsApp
             </a>
             <a
               href="mailto:contact@elconciergio.com"

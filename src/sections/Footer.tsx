@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { trackContactClick } from '@/lib/analytics';
+import { WHATSAPP_URL } from '@/lib/contact';
 import { openCookieSettings } from '@/lib/cookieSettings';
 import s from './Footer.module.css';
 
@@ -50,8 +51,9 @@ const LEGAL_LINKS = [
 ];
 
 const CONTACT_LINKS = [
+  { label: '07 59 94 70 51', href: WHATSAPP_URL },
+  { label: 'WhatsApp', href: WHATSAPP_URL },
   { label: 'contact@elconciergio.com', href: 'mailto:contact@elconciergio.com' },
-  { label: 'Email', href: 'mailto:contact@elconciergio.com' },
 ];
 
 function AccordionColumn({
@@ -137,25 +139,32 @@ export default function Footer() {
               Votre concierge disponible 24h/24 sur WhatsApp. Automatisez l’accueil, fidélisez vos voyageurs.
             </p>
             <a
-              href="mailto:contact@elconciergio.com"
+              href={WHATSAPP_URL}
               className={s.email}
               onClick={() => trackContactClick('footer_email')}
             >
-              contact@elconciergio.com
+              07 59 94 70 51
             </a>
           </div>
 
           <div className={s.ctaBlock}>
             <span className={s.ctaLabel}>Parlons-en</span>
             <a
-              href="mailto:contact@elconciergio.com"
+              href={WHATSAPP_URL}
               className={s.waBtn}
               onClick={() => trackContactClick('footer_cta')}
             >
               <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden>
                 <path d="M9 1C4.58 1 1 4.58 1 9c0 1.42.37 2.75 1.01 3.91L1 17l4.23-1.1A7.93 7.93 0 009 17c4.42 0 8-3.58 8-8s-3.58-8-8-8z" fill="white"/>
               </svg>
-              Envoyer un email
+              Écrire sur WhatsApp
+            </a>
+            <a
+              href="mailto:contact@elconciergio.com"
+              className={s.email}
+              onClick={() => trackContactClick('footer_email_below_cta')}
+            >
+              contact@elconciergio.com
             </a>
           </div>
         </div>

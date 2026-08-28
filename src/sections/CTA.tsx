@@ -1,5 +1,6 @@
 /* Final CTA — green background */
 import { useScrollReveal } from '@/hooks/useScrollReveal';
+import { WHATSAPP_URL } from '@/lib/contact';
 
 export default function CTA() {
   const { ref, isVisible } = useScrollReveal();
@@ -31,7 +32,7 @@ export default function CTA() {
             Démo gratuite, personnalisée à votre logement, sans engagement.
           </p>
           <a
-            href="mailto:contact@elconciergio.com"
+            href={WHATSAPP_URL}
             className="inline-flex items-center gap-3 font-semibold rounded-full transition-all duration-200"
             style={{
               background: 'white',

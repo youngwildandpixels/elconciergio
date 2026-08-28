@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { trackContactClick, trackEvent } from '@/lib/analytics';
+import { WHATSAPP_URL } from '@/lib/contact';
 import s from './Navbar.module.css';
 
 const MOBILE_BREAKPOINT = 760;
@@ -143,12 +144,12 @@ export default function Navbar({ forceBeige = false }: { forceBeige?: boolean })
             </a>
           ))}
           <a
-            href="mailto:contact@elconciergio.com"
+            href={WHATSAPP_URL}
             className={s.contactBtn}
             onClick={() => trackContactClick('navbar_desktop')}
           >
             {WA_ICON}
-            Contact
+            WhatsApp
           </a>
         </nav>
 
@@ -178,7 +179,7 @@ export default function Navbar({ forceBeige = false }: { forceBeige?: boolean })
             </a>
           ))}
           <a
-            href="mailto:contact@elconciergio.com"
+            href={WHATSAPP_URL}
             className={s.mobileContactBtn}
             onClick={() => {
               trackContactClick('navbar_mobile');
@@ -186,7 +187,7 @@ export default function Navbar({ forceBeige = false }: { forceBeige?: boolean })
             }}
           >
             {WA_ICON}
-            Contact
+            WhatsApp
           </a>
         </div>
       </div>
