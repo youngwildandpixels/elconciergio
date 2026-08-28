@@ -288,6 +288,8 @@ export default function Hero() {
             >
               <a
                 href={WHATSAPP_URL}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="btn-primary"
                 style={{ textDecoration: 'none', fontSize: '15px', padding: '15px 30px' }}
               >

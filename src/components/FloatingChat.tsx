@@ -5,6 +5,8 @@ export default function FloatingChat() {
   return (
     <a
       href={WHATSAPP_URL}
+      target="_blank"
+      rel="noopener noreferrer"
       className="wa-sticky"
       aria-label="Contacter El Conciergio sur WhatsApp"
     >

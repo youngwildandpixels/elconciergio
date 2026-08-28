@@ -131,6 +131,8 @@ export default function Pricing() {
         <div className={`text-center reveal reveal-delay-3 ${isVisible ? 'visible' : ''}`}>
           <a
             href={WHATSAPP_URL}
+            target="_blank"
+            rel="noopener noreferrer"
             className="btn-primary"
             style={{ textDecoration: 'none', fontSize: '16px', padding: '16px 36px' }}
           >

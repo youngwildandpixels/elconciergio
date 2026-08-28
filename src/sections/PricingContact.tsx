@@ -191,6 +191,8 @@ export default function PricingContact() {
 
               <a
                 href={plan.ctaHref}
+                target="_blank"
+                rel="noopener noreferrer"
                 className={`${s.btn} ${plan.featured ? s.btnPrimary : ''}`}
                 onClick={() => trackContactClick(`pricing_${plan.name.toLowerCase()}_${billing}`)}
               >
@@ -208,6 +210,8 @@ export default function PricingContact() {
           <div className={s.contactActions}>
             <a
               href={WHATSAPP_URL}
+              target="_blank"
+              rel="noopener noreferrer"
               className={s.waBtn}
               onClick={() => trackContactClick('pricing_contact_strip')}
             >
@@ -218,6 +222,8 @@ export default function PricingContact() {
             </a>
             <a
               href="mailto:contact@elconciergio.com"
+              target="_blank"
+              rel="noopener noreferrer"
               className={s.emailLink}
               onClick={() => trackContactClick('pricing_email_link')}
             >

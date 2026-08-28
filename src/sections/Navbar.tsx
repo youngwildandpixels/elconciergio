@@ -145,6 +145,8 @@ export default function Navbar({ forceBeige = false }: { forceBeige?: boolean })
           ))}
           <a
             href={WHATSAPP_URL}
+            target="_blank"
+            rel="noopener noreferrer"
             className={s.contactBtn}
             onClick={() => trackContactClick('navbar_desktop')}
           >
@@ -180,6 +182,8 @@ export default function Navbar({ forceBeige = false }: { forceBeige?: boolean })
           ))}
           <a
             href={WHATSAPP_URL}
+            target="_blank"
+            rel="noopener noreferrer"
             className={s.mobileContactBtn}
             onClick={() => {
               trackContactClick('navbar_mobile');

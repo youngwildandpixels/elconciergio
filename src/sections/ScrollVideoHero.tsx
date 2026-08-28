@@ -450,6 +450,8 @@ export default function ScrollVideoHero() {
 
             <a
               href={WHATSAPP_URL}
+              target="_blank"
+              rel="noopener noreferrer"
               className={s.cta}
               onClick={() => trackContactClick('hero_mobile')}
             >
@@ -562,6 +564,8 @@ export default function ScrollVideoHero() {
 
           <a
             href={WHATSAPP_URL}
+            target="_blank"
+            rel="noopener noreferrer"
             className={s.cta}
             onClick={() => trackContactClick('hero_desktop')}
           >

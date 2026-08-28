@@ -84,14 +84,16 @@ function AccordionColumn({
         <ul className={s.linkList}>
           {links.map((l) => (
             <li key={l.label}>
-              {l.href.startsWith('/') ? (
-                <Link to={l.href}>{l.label}</Link>
-              ) : l.href === '#cookies' ? (
+              {l.href === '#cookies' ? (
                 <button type="button" onClick={openCookieSettings}>
                   {l.label}
                 </button>
-              ) : (
+              ) : l.href.startsWith('/') ? (
+                <Link to={l.href}>{l.label}</Link>
+              ) : l.href.startsWith('#') ? (
                 <a href={l.href}>{l.label}</a>
+              ) : (
+                <a href={l.href} target="_blank" rel="noopener noreferrer">{l.label}</a>
               )}
             </li>
           ))}
@@ -140,6 +142,8 @@ export default function Footer() {
             </p>
             <a
               href={WHATSAPP_URL}
+              target="_blank"
+              rel="noopener noreferrer"
               className={s.email}
               onClick={() => trackContactClick('footer_email')}
             >
@@ -151,6 +155,8 @@ export default function Footer() {
             <span className={s.ctaLabel}>Parlons-en</span>
             <a
               href={WHATSAPP_URL}
+              target="_blank"
+              rel="noopener noreferrer"
               className={s.waBtn}
               onClick={() => trackContactClick('footer_cta')}
             >
@@ -161,6 +167,8 @@ export default function Footer() {
             </a>
             <a
               href="mailto:contact@elconciergio.com"
+              target="_blank"
+              rel="noopener noreferrer"
               className={s.email}
               onClick={() => trackContactClick('footer_email_below_cta')}
             >

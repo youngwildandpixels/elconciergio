@@ -33,6 +33,8 @@ export default function CTA() {
           </p>
           <a
             href={WHATSAPP_URL}
+            target="_blank"
+            rel="noopener noreferrer"
             className="inline-flex items-center gap-3 font-semibold rounded-full transition-all duration-200"
             style={{
               background: 'white',

@@ -53,6 +53,8 @@ export default function AiDemo() {
           </p>
           <a
             href={WHATSAPP_URL}
+            target="_blank"
+            rel="noopener noreferrer"
             className="btn-primary"
             style={{ textDecoration: 'none' }}
           >
